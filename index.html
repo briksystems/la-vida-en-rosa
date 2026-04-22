@@ -480,15 +480,19 @@
   .gallery-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: 280px;
+    grid-template-rows: auto auto;
     gap: 4px;
   }
   .gallery-item {
     overflow: hidden; position: relative;
     cursor: pointer;
   }
-  .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
-  .gallery-item:nth-child(4) { grid-row: span 2; }
+  .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; min-height: 520px; }
+  .gallery-item:nth-child(2) { grid-row: span 2; }
+  .gallery-item:nth-child(3) { grid-row: span 2; }
+  .gallery-item:nth-child(4) { aspect-ratio: 1 / 1; }
+  .gallery-item:nth-child(5) { aspect-ratio: 1 / 1; }
+  .gallery-item:nth-child(6) { grid-row: span 2; }
 
   .gallery-fill {
     width: 100%; height: 100%;
@@ -614,7 +618,9 @@
   }
   .product-fill {
     position: absolute; inset: 0;
-    background-size: cover; background-position: center;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
     transform: scale(1.0);
     transition: transform 0.5s;
   }
@@ -1171,11 +1177,12 @@
     }
     .gallery-grid {
       grid-template-columns: 1fr 1fr;
-      grid-auto-rows: 180px;
+      grid-auto-rows: 200px;
     }
     .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
-    .gallery-item:nth-child(4) { grid-row: span 1; }
-    .gallery-item[style*="grid-column: span 2"] { grid-column: span 2 !important; }
+    .gallery-item:nth-child(2) { grid-row: span 1; }
+    .gallery-item:nth-child(3) { grid-row: span 1; }
+    .gallery-item:nth-child(6) { grid-row: span 1; }
 
     /* SHOP */
     #shop { padding: 60px 24px; }
@@ -1306,7 +1313,7 @@
         <div class="mosaic-label">Ranúnculus</div>
       </div>
       <div class="mosaic-cell">
-        <div class="fill fill-4" style="background-image:url('https://i.imgur.com/kNJG1sU.jpg')"></div>
+        <div class="fill fill-4" style="background-image:url('https://i.imgur.com/OVVzJIo.jpg')"></div>
         <div class="mosaic-label">Colección Novias</div>
       </div>
     </div>
@@ -1429,16 +1436,6 @@
       <div class="servicio-desc">Instalaciones para escaparates de marcas y retail</div>
     </div>
     <div class="servicio-card">
-      <svg class="servicio-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 10l4.553-2.069A1 1 0 0121 8.82V15.18a1 1 0 01-1.447.89L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z"/></svg>
-      <div class="servicio-name">Escenografías</div>
-      <div class="servicio-desc">Grandes instalaciones para eventos y producciones</div>
-    </div>
-    <div class="servicio-card">
-      <svg class="servicio-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>
-      <div class="servicio-name">Fotografía</div>
-      <div class="servicio-desc">Styling floral para campañas de producto</div>
-    </div>
-    <div class="servicio-card">
       <svg class="servicio-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
       <div class="servicio-name">Home</div>
       <div class="servicio-desc">Piezas decorativas para el hogar</div>
@@ -1452,12 +1449,6 @@
       <svg class="servicio-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
       <div class="servicio-name">Lanzamientos</div>
       <div class="servicio-desc">Instalaciones para lanzamientos de producto</div>
-    </div>
-    <!-- Duplicado para loop -->
-    <div class="servicio-card">
-      <svg class="servicio-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83"/></svg>
-      <div class="servicio-name">Piezas de Lujo</div>
-      <div class="servicio-desc">Creaciones únicas para coleccionistas</div>
     </div>
   </div>
 </div>
@@ -1477,27 +1468,33 @@
     </div>
   </div>
   <div class="gallery-grid reveal">
+    <!-- 1. Bouquets - grande izquierda (2 cols × 2 filas) -->
     <div class="gallery-item" data-cat="novias">
       <div class="gallery-fill g1" style="background-image:url('https://i.imgur.com/kNJG1sU.jpg')"></div>
       <div class="gallery-overlay"><span class="gallery-caption">Colección Novias · Bouquets</span></div>
     </div>
+    <!-- 2. Bronzini - vertical derecha (1 col × 2 filas) -->
     <div class="gallery-item" data-cat="marcas">
       <div class="gallery-fill g2" style="background-image:url('https://i.imgur.com/vph7oNj.jpg'); background-position: center 15%;"></div>
       <div class="gallery-overlay"><span class="gallery-caption">Bronzini · Colombia Moda 2019</span></div>
     </div>
-    <div class="gallery-item" data-cat="marcas">
-      <div class="gallery-fill g3"></div>
-      <div class="gallery-overlay"><span class="gallery-caption">Lancôme · Vitrina</span></div>
-    </div>
+    <!-- 3. Home Peonias - vertical izquierda (1 col × 2 filas) -->
     <div class="gallery-item" data-cat="home">
-      <div class="gallery-fill g4" style="background-image:url('https://i.imgur.com/nJgjuQM.jpg'); background-size: 85%; background-position: center;"></div>
+      <div class="gallery-fill g4" style="background-image:url('https://i.imgur.com/nJgjuQM.jpg'); background-size: contain; background-color: #f9f0ee;"></div>
       <div class="gallery-overlay"><span class="gallery-caption">Home Collection · Peonias</span></div>
     </div>
+    <!-- 4. Novias - cuadrado (cruzado: junto a Home Peonias) -->
     <div class="gallery-item" data-cat="novias">
-      <div class="gallery-fill g5"></div>
-      <div class="gallery-overlay"><span class="gallery-caption">Tocados · Anemone</span></div>
+      <div class="gallery-fill" style="background-image:url('https://i.imgur.com/zRGKMLv.jpg')"></div>
+      <div class="gallery-overlay"><span class="gallery-caption">Colección Novias · Tocados</span></div>
     </div>
-    <div class="gallery-item" data-cat="marcas" style="grid-column: span 2;">
+    <!-- 5. Home flores - cuadrado (cruzado: junto a Alo Novias) -->
+    <div class="gallery-item" data-cat="home">
+      <div class="gallery-fill" style="background-image:url('https://i.imgur.com/CYUnrPc.jpg')"></div>
+      <div class="gallery-overlay"><span class="gallery-caption">Home · Flores</span></div>
+    </div>
+    <!-- 6. Alo Novias - vertical derecha (1 col × 2 filas) -->
+    <div class="gallery-item" data-cat="marcas">
       <div class="gallery-fill g6" style="background-image:url('https://i.imgur.com/dQkquIZ.jpg'); background-position: center top;"></div>
       <div class="gallery-overlay"><span class="gallery-caption">Styling · Revista Alo Novias</span></div>
     </div>
@@ -1516,7 +1513,7 @@
   <div class="shop-grid reveal">
     <div class="product-card">
       <div class="product-img">
-        <div class="product-fill p1"></div>
+        <div class="product-fill p1" style="background-image:url('https://i.imgur.com/aAMUe48.jpg')"></div>
         <span class="product-tag">Más Amada</span>
       </div>
       <div class="product-name">Ranúnculus Rosa</div>
@@ -1528,7 +1525,7 @@
     </div>
     <div class="product-card">
       <div class="product-img">
-        <div class="product-fill p2"></div>
+        <div class="product-fill p2" style="background-image:url('https://i.imgur.com/E560ky2.jpg')"></div>
         <span class="product-tag">Nuevo</span>
       </div>
       <div class="product-name">Anemone Lila</div>
@@ -1540,7 +1537,7 @@
     </div>
     <div class="product-card">
       <div class="product-img">
-        <div class="product-fill p3"></div>
+        <div class="product-fill p3" style="background-image:url('https://i.imgur.com/OVVzJIo.jpg')"></div>
       </div>
       <div class="product-name">Bouquet Novia</div>
       <div class="product-type">Arreglo Personalizado</div>
@@ -1551,7 +1548,7 @@
     </div>
     <div class="product-card">
       <div class="product-img">
-        <div class="product-fill p4"></div>
+        <div class="product-fill p4" style="background-image:url('https://i.imgur.com/7kf6XSW.jpg')"></div>
         <span class="product-tag">Exclusivo</span>
       </div>
       <div class="product-name">Pieza de Lujo</div>

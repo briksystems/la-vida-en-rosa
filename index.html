@@ -648,15 +648,20 @@
     position: relative;
   }
   .product-modal-photos {
-    background: var(--light);
+    background: var(--rosa);
     position: relative;
     aspect-ratio: 1/1;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
   }
   .product-modal-photos img {
     width: 100%; height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     transition: opacity 0.3s;
+    border-radius: 2px;
   }
   .pm-arrow {
     position: absolute; top: 50%; transform: translateY(-50%);
@@ -1192,7 +1197,7 @@
   .footer-col ul a:hover { color: var(--rosa); }
   .footer-bottom {
     display: flex; justify-content: center; align-items: center;
-    flex-direction: column; gap: 8px; text-align: center;
+    flex-direction: column; gap: 6px; text-align: center;
   }
   .footer-copy {
     font-family: var(--sans);
@@ -1445,8 +1450,8 @@
 
   .splash-btn {
     opacity: 0; transform: rotate(-180deg) scale(0.4);
-    animation: splashRose 0.9s cubic-bezier(0.34,1.56,0.64,1) 3.2s forwards;
-    margin-top: 52px; cursor: pointer;
+    animation: splashRose 0.8s cubic-bezier(0.34,1.56,0.64,1) 3.2s forwards;
+    margin-top: 84px; cursor: pointer;
     display: flex; flex-direction: column;
     align-items: center; gap: 8px;
     background: none; border: none; padding: 0;
@@ -1476,8 +1481,8 @@
   @keyframes splashFade { to { opacity: 1; } }
   @keyframes splashLine { to { width: 80px; } }
   @keyframes splashRose {
-    from { opacity: 0; transform: rotate(-180deg) scale(0.4); }
-    to   { opacity: 1; transform: rotate(0deg) scale(1); }
+    from { opacity: 0; transform: scale(0.15); }
+    to   { opacity: 1; transform: scale(1); }
   }
   @keyframes splashBounce {
     0%, 100% { transform: translateY(0); }
@@ -1813,7 +1818,11 @@
       <div class="shop-cta-text">¿Algo especial en mente?</div>
       <div class="shop-cta-sub">Todos nuestros arreglos son diseñados exclusivamente según requerimiento del cliente</div>
     </div>
-    <a href="https://wa.me/573208654762?text=Hola!%20Quiero%20hacer%20un%20pedido%20personalizado" class="btn-white" target="_blank">✦ Pedido Personalizado</a>
+    <a href="https://wa.me/573208654762?text=Hola!%20Quiero%20hacer%20un%20pedido%20personalizado" class="btn-white" target="_blank" style="display:flex;align-items:center;gap:10px;"><svg width="22" height="22" viewBox="0 0 402 343" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+          <g transform="translate(0,343) scale(0.1,-0.1)" fill="currentColor" stroke="none">
+            <path d="M612 3178 c-9 -9 -12 -189 -12 -748 l0 -735 728 -728 727 -727 732 0 c652 0 733 2 747 16 20 19 20 75 2 215 -23 165 -62 301 -133 451 l-36 78 38 82 c101 221 139 399 139 643 -1 242 -38 410 -140 625 -185 391 -548 690 -964 795 -163 41 -372 59 -398 33 -9 -9 -12 -174 -12 -682 l0 -671 -683 683 c-455 455 -689 682 -703 682 -11 0 -25 -5 -32 -12z m1802 -118 c521 -134 917 -556 1023 -1087 21 -110 24 -374 4 -483 -25 -139 -109 -390 -130 -390 -4 0 -29 30 -56 67 -65 89 -201 225 -295 295 -215 160 -467 259 -734 289 l-106 12 0 670 0 670 91 -7 c50 -4 141 -20 203 -36z m-1084 -665 l635 -635 -638 0 -637 0 0 635 c0 349 1 635 3 635 1 0 288 -286 637 -635z m700 -1360 c0 -349 -1 -635 -3 -635 -1 0 -288 286 -637 635 l-635 635 638 0 637 0 0 -635z m249 619 c192 -28 395 -107 571 -223 103 -67 296 -257 364 -358 l48 -71 -53 -79 c-76 -109 -245 -276 -357 -351 -203 -135 -425 -214 -664 -236 l-68 -7 0 671 0 670 26 0 c15 0 74 -7 133 -16z m1086 -868 c51 -133 95 -335 95 -438 0 -17 -25 -18 -437 -18 l-438 0 130 64 c72 35 170 92 220 127 108 77 252 219 320 316 59 84 57 85 110 -51z"/>
+          </g>
+        </svg> Pedido Personalizado</a>
   </div>
 </section>
 
@@ -2060,7 +2069,11 @@
       <textarea placeholder=" " id="mensaje"></textarea>
       <label for="mensaje" style="top:10px;">Cuéntanos tu idea...</label>
     </div>
-    <button class="form-submit" onclick="handleSubmit()">Enviar Mensaje ✦</button>
+    <button class="form-submit" onclick="handleSubmit()" style="display:flex;align-items:center;justify-content:center;gap:10px;"><svg width="22" height="22" viewBox="0 0 402 343" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+          <g transform="translate(0,343) scale(0.1,-0.1)" fill="currentColor" stroke="none">
+            <path d="M612 3178 c-9 -9 -12 -189 -12 -748 l0 -735 728 -728 727 -727 732 0 c652 0 733 2 747 16 20 19 20 75 2 215 -23 165 -62 301 -133 451 l-36 78 38 82 c101 221 139 399 139 643 -1 242 -38 410 -140 625 -185 391 -548 690 -964 795 -163 41 -372 59 -398 33 -9 -9 -12 -174 -12 -682 l0 -671 -683 683 c-455 455 -689 682 -703 682 -11 0 -25 -5 -32 -12z m1802 -118 c521 -134 917 -556 1023 -1087 21 -110 24 -374 4 -483 -25 -139 -109 -390 -130 -390 -4 0 -29 30 -56 67 -65 89 -201 225 -295 295 -215 160 -467 259 -734 289 l-106 12 0 670 0 670 91 -7 c50 -4 141 -20 203 -36z m-1084 -665 l635 -635 -638 0 -637 0 0 635 c0 349 1 635 3 635 1 0 288 -286 637 -635z m700 -1360 c0 -349 -1 -635 -3 -635 -1 0 -288 286 -637 635 l-635 635 638 0 637 0 0 -635z m249 619 c192 -28 395 -107 571 -223 103 -67 296 -257 364 -358 l48 -71 -53 -79 c-76 -109 -245 -276 -357 -351 -203 -135 -425 -214 -664 -236 l-68 -7 0 671 0 670 26 0 c15 0 74 -7 133 -16z m1086 -868 c51 -133 95 -335 95 -438 0 -17 -25 -18 -437 -18 l-438 0 130 64 c72 35 170 92 220 127 108 77 252 219 320 316 59 84 57 85 110 -51z"/>
+          </g>
+        </svg> Enviar Mensaje</button>
   </div>
 </section>
 
@@ -2116,7 +2129,7 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <p class="footer-copy">© 2024 La Vida en Rosa · Todos los derechos reservados · <a href="mailto:lavidaenrosaa@gmail.com">lavidaenrosaa@gmail.com</a></p>
+    <p class="footer-copy">© 2024 La Vida en Rosa · Todos los derechos reservados</p>
     <p class="footer-brik">Diseñado por Brik Systems</p>
   </div>
 </footer>

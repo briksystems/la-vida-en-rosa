@@ -730,7 +730,7 @@
   .pm-wa-btn {
     display: flex; align-items: center; justify-content: center;
     gap: 10px;
-    background: #25D366; color: white;
+    background: var(--dark); color: white;
     font-family: var(--sans); font-weight: 500;
     font-size: 11px; letter-spacing: 0.18em;
     text-transform: uppercase;
@@ -738,7 +738,7 @@
     padding: 16px 24px;
     transition: background 0.2s;
   }
-  .pm-wa-btn:hover { background: #1da851; }
+  .pm-wa-btn:hover { background: #444; }
 
   /* ===== CATÁLOGO PANTALLA COMPLETA ===== */
   #catalogPage {
@@ -776,6 +776,7 @@
   }
   .product-fill {
     position: absolute; inset: 0;
+    background-color: var(--rosa) !important;
     background-size: cover !important;
     background-position: center !important;
     background-repeat: no-repeat !important;
@@ -783,10 +784,10 @@
     transition: transform 0.5s;
   }
   .product-card:hover .product-fill { transform: scale(1.05); }
-  .p1 { background: linear-gradient(150deg, #fde8e6 0%, #f5c8c0 50%, #e8a0a0 100%); }
-  .p2 { background: linear-gradient(150deg, #f0ebf8 0%, #d8d0f0 50%, #a898d8 100%); }
-  .p3 { background: linear-gradient(150deg, #fff0ed 0%, #f8d8d0 50%, #f0b0a8 100%); }
-  .p4 { background: linear-gradient(150deg, #fde0e8 0%, #f5c0d0 50%, #e89ab0 100%); }
+  .p1 { background: var(--rosa); }
+  .p2 { background: var(--rosa); }
+  .p3 { background: var(--rosa); }
+  .p4 { background: var(--rosa); }
   .product-tag {
     position: absolute; top: 12px; left: 12px;
     font-family: var(--sans);
@@ -1417,59 +1418,61 @@
   #splash.leaving { transform: translateY(-100%); }
 
   .splash-logo {
-    opacity: 0; transform: scale(0.9);
-    animation: splashLogo 0.9s ease 0.3s forwards;
+    opacity: 0; transform: translateY(60px);
+    animation: splashLogo 1s cubic-bezier(0.22,1,0.36,1) 0.2s forwards;
     max-width: 90vw;
+  }
+  .splash-logo img {
+    max-width: min(480px, 88vw); height: auto; display: block;
+    filter: drop-shadow(0 8px 32px rgba(94,83,162,0.15));
   }
   .splash-brand { display: none; }
   .splash-line {
     width: 0; height: 1px;
-    background: var(--viola);
-    opacity: 0.4;
-    animation: splashLine 0.6s ease 1.1s forwards;
+    background: var(--viola); opacity: 0.4;
+    animation: splashLine 0.8s cubic-bezier(0.22,1,0.36,1) 1.1s forwards;
   }
   .splash-sub {
-    font-family: var(--sans);
-    font-weight: 300;
+    font-family: var(--sans); font-weight: 300;
     font-size: clamp(11px, 1.4vw, 14px);
-    letter-spacing: 0.32em;
-    text-transform: uppercase;
+    letter-spacing: 0.32em; text-transform: uppercase;
     color: var(--mid);
-    opacity: 0;
-    animation: splashFade 0.7s ease 1.3s forwards;
+    opacity: 0; transform: translateY(16px);
+    animation: splashSlideUp 0.8s cubic-bezier(0.22,1,0.36,1) 1.4s forwards;
   }
   .splash-btn {
-    opacity: 0;
-    animation: splashFade 0.7s ease 1.8s forwards;
-    margin-top: 16px;
-    cursor: pointer;
+    opacity: 0; transform: translateY(16px);
+    animation: splashSlideUp 0.8s cubic-bezier(0.22,1,0.36,1) 2.0s forwards;
+    margin-top: 36px; cursor: pointer;
     display: flex; flex-direction: column;
     align-items: center; gap: 8px;
-    background: none; border: none;
-    padding: 0;
+    background: none; border: none; padding: 0;
     transition: transform 0.3s;
   }
-  .splash-btn:hover { transform: translateY(4px); }
+  .splash-btn:hover { transform: translateY(5px); }
   .splash-btn-label {
-    font-family: var(--sans);
-    font-weight: 300;
-    font-size: 10px;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    color: var(--viola);
-    opacity: 0.7;
+    font-family: var(--sans); font-weight: 300;
+    font-size: 10px; letter-spacing: 0.28em;
+    text-transform: uppercase; color: var(--viola); opacity: 0.7;
   }
   .splash-btn svg { filter: drop-shadow(0 2px 8px rgba(94,83,162,0.2)); }
   .splash-arrow {
     color: var(--viola); opacity: 0.6;
-    animation: splashBounce 1.5s ease-in-out 2.5s infinite;
+    animation: splashBounce 1.4s ease-in-out 3s infinite;
   }
-  @keyframes splashLogo { to { opacity: 1; transform: scale(1); } }
+  @keyframes splashLogo {
+    from { opacity: 0; transform: translateY(60px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes splashSlideUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
   @keyframes splashFade { to { opacity: 1; } }
-  @keyframes splashLine { to { width: 60px; } }
+  @keyframes splashLine { to { width: 80px; } }
   @keyframes splashBounce {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(5px); }
+    50%      { transform: translateY(6px); }
   }
 </style>
 </head>
@@ -1478,31 +1481,14 @@
 <!-- ===== SPLASH SCREEN ===== -->
 <div id="splash">
   <div class="splash-logo">
-    <svg width="90vw" height="auto" style="max-width:700px; width:90vw;" viewBox="297 181 318 224" xmlns="http://www.w3.org/2000/svg">
-      <g transform="translate(0,584) scale(0.1,-0.1)" fill="#5e53a2" stroke="none">
-        <path d="M4007 3934 c-4 -4 -7 -145 -7 -313 l0 -306 303 -303 302 -302 303 0 c262 0 303 2 308 15 11 27 -15 165 -42 229 -14 33 -26 66 -26 71 1 6 15 51 33 100 30 82 33 100 33 200 -1 93 -5 123 -28 190 -80 237 -311 415 -538 415 l-58 0 0 -282 0 -283 -288 288 c-158 158 -291 285 -295 281z m789 -68 c170 -62 292 -184 355 -356 20 -55 24 -83 24 -185 0 -102 -4 -130 -24 -187 -14 -38 -27 -68 -30 -68 -3 0 -17 17 -31 37 -35 52 -130 128 -208 167 -69 34 -177 66 -225 66 l-27 0 0 281 0 281 53 -7 c28 -4 80 -17 113 -29z m-496 -261 l265 -265 -268 0 -267 0 0 265 c0 146 1 265 3 265 1 0 121 -119 267 -265z m290 -560 c0 -146 -1 -265 -3 -265 -1 0 -121 119 -267 265 l-265 265 268 0 267 0 0 -265z m187 235 c109 -36 218 -111 284 -196 l42 -54 -29 -41 c-46 -66 -133 -138 -219 -179 -68 -33 -164 -60 -212 -60 -10 0 -13 55 -13 278 l0 279 55 -8 c30 -4 71 -13 92 -19z m367 -342 c23 -65 36 -119 36 -155 l0 -33 -177 0 -178 1 70 36 c48 25 94 62 145 114 41 42 78 78 82 78 3 1 13 -18 22 -41z"/>
-        <path d="M3070 2015 l0 -125 70 0 c56 0 70 3 70 15 0 12 -13 15 -55 15 l-55 0 0 110 c0 91 -3 110 -15 110 -13 0 -15 -21 -15 -125z"/>
-        <path d="M3181 2069 c-18 -41 -35 -80 -38 -86 -3 -8 2 -13 11 -13 9 0 19 7 22 15 4 9 19 15 39 15 20 0 35 -6 39 -15 5 -15 36 -21 36 -7 0 4 -17 43 -38 86 l-37 79 -34 -74z m49 -36 c0 -7 -7 -13 -15 -13 -16 0 -19 9 -9 35 5 13 8 14 15 3 5 -7 9 -19 9 -25z"/>
-        <path d="M3483 2128 c3 -7 24 -61 48 -120 23 -60 45 -108 49 -108 5 0 60 129 96 223 4 12 1 17 -13 17 -15 0 -26 -18 -48 -80 -16 -44 -32 -80 -35 -80 -3 0 -18 36 -34 80 -22 64 -32 80 -48 80 -12 0 -18 -5 -15 -12z"/>
-        <path d="M3760 2015 c0 -104 2 -125 15 -125 13 0 15 21 15 125 0 104 -2 125 -15 125 -13 0 -15 -21 -15 -125z"/>
-        <path d="M3880 2015 l0 -125 61 0 c72 0 112 20 134 66 46 97 -19 184 -136 184 l-59 0 0 -125z m146 64 c18 -17 24 -33 24 -63 -1 -61 -37 -96 -99 -96 l-31 0 0 96 0 97 41 -6 c23 -3 52 -15 65 -28z"/>
-        <path d="M4196 2029 c-26 -63 -50 -120 -53 -126 -3 -8 3 -13 15 -13 13 0 22 9 26 25 6 22 11 25 56 25 44 0 52 -3 62 -25 6 -14 19 -25 29 -25 15 0 12 15 -28 108 -25 59 -48 115 -52 126 -6 14 -19 -10 -55 -95z m52 -57 c-16 -2 -32 -1 -34 1 -3 2 3 24 12 47 l17 43 18 -44 17 -44 -30 -3z"/>
-        <path d="M4550 2015 l0 -125 70 0 c56 0 70 3 70 15 0 12 -13 15 -55 15 l-55 0 0 40 0 40 50 0 c42 0 50 3 50 18 0 16 -7 18 -37 16 -53 -3 -63 4 -63 42 l0 34 50 0 c38 0 50 4 50 15 0 12 -14 15 -65 15 l-65 0 0 -125z"/>
-        <path d="M4770 2015 c0 -103 3 -125 15 -125 11 0 15 20 17 95 l3 94 74 -89 c40 -50 75 -90 77 -90 2 0 4 54 4 120 0 98 -3 120 -15 120 -11 0 -15 -17 -17 -76 l-3 -77 -63 77 c-35 42 -70 76 -78 76 -11 0 -14 -23 -14 -125z"/>
-        <path d="M5180 2015 c0 -104 2 -125 15 -125 11 0 15 11 15 36 l0 35 43 -3 c36 -3 44 -7 57 -35 8 -18 21 -33 28 -33 17 0 15 41 -4 68 -15 21 -15 25 0 41 16 18 21 66 10 96 -10 25 -59 45 -114 45 l-50 0 0 -125z m120 75 c41 -41 16 -92 -46 -94 l-39 -1 -3 58 -3 57 36 0 c22 0 43 -8 55 -20z"/>
-        <path d="M5488 2124 c-61 -33 -79 -138 -32 -193 57 -68 169 -58 210 20 17 34 18 96 0 127 -31 56 -118 79 -178 46z m112 -29 c56 -29 57 -134 2 -164 -83 -44 -171 45 -127 128 25 49 73 63 125 36z"/>
-        <path d="M5860 2112 c-18 -18 -36 -55 -49 -99 -16 -54 -27 -72 -46 -81 -25 -11 -35 -42 -15 -42 21 0 69 30 75 47 3 10 16 47 28 83 17 50 28 68 50 78 15 7 27 20 27 28 0 24 -40 16 -70 -14z"/>
-        <path d="M5996 2029 c-26 -63 -50 -120 -53 -126 -3 -8 3 -13 16 -13 14 0 23 8 27 25 6 22 11 25 55 25 43 0 51 -3 61 -25 6 -14 19 -25 28 -25 15 0 11 16 -27 108 -25 59 -48 115 -52 126 -6 14 -19 -10 -55 -95z m52 -57 c-16 -2 -32 -2 -34 1 -2 2 4 23 13 46 l17 43 17 -44 17 -43 -30 -3z"/>
-      </g>
-    </svg>
-  </div>
+    <img src="https://i.imgur.com/Ik00BP0.png" alt="La Vida en Rosa">  </div>
 
   <div class="splash-line"></div>
   <p class="splash-sub">Flores realistas en papel.</p>
 
   <button class="splash-btn" onclick="startSplash()" aria-label="Entrar">
     <!-- Rosa real -->
-    <svg width="70" height="91" viewBox="0 0 789 1024" xmlns="http://www.w3.org/2000/svg">
+    <svg width="28" height="36" viewBox="0 0 789 1024" xmlns="http://www.w3.org/2000/svg">
       <g transform="translate(0,1024) scale(0.1,-0.1)" fill="#5e53a2" stroke="none">
         <path d="M3665 9976 c-291 -66 -528 -218 -687 -441 -19 -27 -43 -65 -52 -82 -9 -18 -22 -33 -29 -33 -6 0 -46 26 -87 57 -178 134 -368 243 -485 279 -91 27 -231 25 -320 -5 -88 -30 -179 -94 -233 -163 -90 -117 -157 -322 -171 -525 -4 -57 -10 -105 -12 -107 -3 -3 -58 13 -123 34 -150 50 -280 70 -442 70 -317 0 -565 -91 -831 -304 -35 -27 -63 -51 -63 -52 0 -2 39 -24 87 -50 392 -210 542 -314 738 -511 l105 -105 0 -711 c0 -392 5 -788 10 -882 39 -639 319 -1259 784 -1733 289 -295 611 -511 976 -655 138 -54 253 -91 336 -107 59 -12 94 -25 84 -32 -25 -18 -135 -64 -220 -92 -158 -52 -293 -70 -475 -63 -82 4 -161 8 -174 9 -24 3 -25 0 -53 -156 -16 -87 -28 -159 -26 -161 10 -9 200 -25 303 -25 275 0 532 63 790 193 73 36 223 130 291 182 7 5 16 7 19 4 3 -3 4 -484 3 -1069 l-3 -1063 -59 89 c-76 114 -140 195 -297 374 -303 347 -702 675 -1104 908 -547 316 -1173 492 -1755 492 -128 0 -419 -16 -427 -23 -2 -2 12 -53 30 -113 94 -302 236 -567 434 -806 430 -521 1077 -808 1823 -808 202 0 522 36 702 79 l77 18 34 -36 c178 -186 388 -525 498 -806 l43 -110 4 -312 3 -313 160 0 159 0 0 288 c0 274 1 290 24 362 48 153 153 379 226 485 15 22 35 54 43 72 23 43 184 256 244 320 l48 53 55 -16 c30 -8 145 -29 255 -45 590 -89 1126 -19 1575 206 243 121 391 227 577 413 272 271 476 616 578 982 14 46 23 85 22 87 -7 7 -287 23 -402 23 -436 0 -935 -101 -1315 -265 -47 -21 -105 -45 -130 -56 -85 -34 -268 -132 -406 -214 -492 -298 -988 -757 -1302 -1205 l-87 -124 -3 1068 c-1 588 0 1071 2 1073 2 3 30 -16 63 -40 181 -136 372 -227 615 -291 156 -42 268 -56 434 -56 99 0 281 15 292 25 3 2 -48 318 -52 322 -1 2 -29 -2 -62 -7 -90 -15 -299 -12 -405 6 -111 19 -290 75 -371 115 -32 16 -58 31 -58 33 0 3 33 12 73 21 166 37 393 122 589 221 530 269 979 721 1238 1249 147 298 201 471 267 855 14 82 17 213 20 931 l4 837 122 119 c133 130 255 225 417 325 118 74 364 208 380 208 24 0 6 22 -57 73 -147 116 -235 166 -398 227 -259 97 -571 97 -868 0 -67 -22 -122 -38 -123 -37 -2 1 -8 51 -14 111 -16 161 -36 252 -76 351 -73 181 -174 286 -324 335 -202 67 -385 17 -688 -190 -81 -55 -161 -112 -177 -125 l-31 -24 -59 91 c-143 217 -365 378 -626 453 -82 24 -116 28 -264 31 -119 2 -188 -1 -230 -10z m344 -326 c131 -22 292 -104 392 -202 86 -83 175 -221 153 -236 -168 -115 -456 -262 -627 -321 -66 -23 -177 -54 -247 -71 -208 -49 -536 -66 -562 -29 -17 26 -2 257 22 333 84 263 336 486 595 526 75 11 202 11 274 0z m-1698 -245 c66 -34 223 -134 288 -184 l25 -19 -53 -58 c-160 -175 -261 -418 -261 -627 l0 -71 -52 51 c-68 65 -228 199 -292 242 l-49 34 7 151 c9 183 20 259 51 349 61 176 166 217 336 132z m3357 18 c95 -70 151 -266 152 -536 l0 -117 -47 -33 c-113 -78 -243 -195 -443 -401 -447 -459 -588 -594 -743 -713 l-29 -22 -221 113 c-505 257 -738 410 -948 618 l-103 103 84 7 c371 31 623 99 948 255 212 101 377 203 662 407 352 252 427 300 525 332 53 18 130 12 163 -13z m-2884 -635 c31 -359 293 -698 789 -1023 148 -97 360 -218 551 -315 l148 -75 -37 -30 c-50 -40 -238 -198 -309 -258 l-55 -49 -83 74 c-97 85 -221 186 -443 358 -354 274 -499 411 -577 545 -101 174 -132 290 -126 470 4 117 8 138 36 210 31 78 80 165 93 165 3 0 9 -33 13 -72z m-1540 -82 c335 -73 580 -233 947 -618 461 -483 589 -603 889 -833 772 -590 1045 -894 1146 -1279 l13 -50 -77 -100 c-210 -275 -346 -571 -413 -904 -28 -139 -32 -183 -38 -389 l-6 -232 -108 68 c-593 377 -1002 817 -1265 1361 -134 279 -226 549 -367 1085 -47 179 -117 420 -148 510 -199 575 -492 992 -915 1302 -57 41 -101 77 -99 79 12 12 105 22 210 23 90 1 143 -5 231 -23z m5675 7 l24 -10 -27 -19 c-213 -153 -343 -270 -490 -444 -266 -313 -464 -724 -596 -1233 -21 -82 -44 -153 -51 -157 -6 -5 -57 -20 -113 -35 -393 -105 -781 -303 -1074 -548 -46 -38 -84 -67 -86 -66 -1 2 -30 60 -63 129 -75 153 -135 244 -246 377 l-86 102 122 103 c67 57 198 163 292 236 457 356 512 405 920 832 144 151 303 310 352 353 221 193 455 318 692 372 92 21 126 24 256 21 83 -2 161 -8 174 -13z m-5447 -1403 c56 -150 138 -428 223 -755 149 -572 315 -977 544 -1330 129 -199 273 -374 457 -559 118 -118 261 -244 349 -307 83 -59 60 -57 -110 11 -210 83 -440 218 -630 369 -38 30 -127 112 -196 181 -391 390 -629 872 -699 1414 -18 139 -20 213 -20 659 l1 502 21 -40 c11 -21 38 -86 60 -145z m4876 -385 c-2 -1 -48 -5 -104 -9 l-101 -7 23 87 c38 142 116 364 161 458 18 39 18 38 21 -244 1 -156 1 -284 0 -285z m-2 -442 c-18 -270 -80 -534 -191 -803 -40 -95 -75 -162 -152 -288 -116 -189 -210 -309 -368 -467 -211 -212 -398 -348 -655 -476 -134 -67 -320 -143 -329 -134 -3 4 2 11 11 16 33 18 206 164 312 263 108 100 259 265 367 401 104 131 274 398 264 415 -3 4 -51 34 -107 66 -57 32 -115 66 -130 76 -36 25 -42 23 -61 -18 -10 -20 -50 -86 -90 -147 -203 -310 -479 -595 -832 -856 -72 -54 -342 -231 -351 -231 -15 0 12 466 33 560 18 86 71 256 98 320 113 265 238 446 459 665 302 300 632 496 1056 628 189 59 473 111 629 116 l43 1 -6 -107z m-5477 -3299 c560 -73 1152 -333 1659 -727 129 -101 332 -275 332 -286 0 -13 -251 -43 -420 -48 -839 -28 -1514 332 -1875 1001 l-49 89 120 -7 c65 -4 170 -14 233 -22z m6351 20 c0 -11 -73 -139 -126 -219 -271 -416 -678 -696 -1174 -810 -193 -44 -254 -50 -520 -50 -195 0 -284 5 -380 19 -69 10 -128 21 -132 25 -9 8 135 137 296 264 518 411 1123 678 1702 751 171 22 334 32 334 20z"/>
       </g>
@@ -1602,10 +1588,19 @@
     <p class="section-label">Nuestra Esencia</p>
     <h2 class="section-title">Arte que<br><em>nace del papel</em></h2>
     <p class="section-body">
-      Hace más de seis años comenzamos este hermoso proyecto con una gran visión: impactar la vida de muchas mujeres. Hoy, La Vida en Rosa es sinónimo de flores de papel únicas, memorables y llenas de vida — desde vitrinas de marcas de lujo hasta bouquets de novia que duran para siempre.
+      Felices de que estés aquí. Somos La Vida en Rosa: un equipo de mujeres dedicadas al arte de crear flores realistas en papel.
     </p>
     <p class="section-body" style="margin-top:16px;">
-      Trabajamos con papel, tela, madera, alambre, cintas y acuarelas para crear piezas especiales con un factor de naturalidad propia. Cada flor es un mundo en miniatura.
+      Elegimos el papel italiano porque tiene memoria. Porque guarda la luz de una forma distinta. Porque resiste el gesto de la mano sin perder su delicadeza.
+    </p>
+    <p class="section-body" style="margin-top:16px;">
+      En nuestro taller no cultivamos jardines: los construimos. Pétalo a pétalo, cada flor nos pide tiempo, nos pide mirar, nos pide paciencia y observación. A través de nuestras manos le damos forma a la curva de un pétalo como quien lee un poema. Hay silencio, tijeras y la certeza de que lo delicado también puede ser profundo.
+    </p>
+    <p class="section-body" style="margin-top:16px;">
+      Nos adentramos en la botánica de las flores para entender cómo cae una hoja, cómo se tuerce un tallo, cómo el color viaja desde el centro hacia el borde. Es un proceso 100% manual, hecho por manos colombianas con mucho detalle e intención.
+    </p>
+    <p class="section-body" style="margin-top:16px;">
+      La Vida en Rosa es nuestra forma de habitar lo sutil. De recordarte que la ternura es una fuerza. Y que hay cosas que merecen ser miradas con más atención, porque creemos que lo que se hace lento, se queda en el alma para siempre.
     </p>
     <div class="about-stats">
       <div class="stat-item">
@@ -1635,10 +1630,12 @@
       <p class="section-label">Nuestros Principios</p>
       <h2 class="section-title" style="color:var(--white)">Lo que nos<br><em>hace diferentes</em></h2>
       <blockquote class="proposito-quote">
-        "Pliegues y uniones emergentes que florecen en nuestras manos."
+        "La Vida en Rosa: donde el papel florece y las mujeres también."
       </blockquote>
       <p class="proposito-body">
-        Nuestros productos son un espejo de la realidad sembrado desde las ideas más delicadas y sofisticadas. Son memorables, tratados con el mayor cuidado y con los mejores materiales.
+        Anhelamos crear una comunidad sólida donde la mujer vea lo fuerte, grande y valiosa que es, porque es una creación perfecta de Dios, quien la sostiene y ama. Nuestro compromiso es que cada flor que creamos, cada taller que damos y cada historia que compartimos, aporte color rosa para alguien.
+        La Vida en Rosa es eso: el arte de hacer florecer el papel, para que cada mujer se reconozca gigante.
+        <br><br><strong style="color:var(--rosa); font-size:13px; letter-spacing:0.15em;">Somos Mujer Gigante · +Rosa</strong>
       </p>
     </div>
     <div class="proposito-right reveal">
@@ -1829,8 +1826,12 @@
       <p class="pm-desc-label">Descripción</p>
       <p class="pm-desc" id="pmDesc"></p>
       <a id="pmWa" href="#" target="_blank" class="pm-wa-btn">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-        Consultar por WhatsApp
+        <svg width="28" height="28" viewBox="0 0 402 343" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+          <g transform="translate(0,343) scale(0.1,-0.1)" fill="white" stroke="none">
+            <path d="M612 3178 c-9 -9 -12 -189 -12 -748 l0 -735 728 -728 727 -727 732 0 c652 0 733 2 747 16 20 19 20 75 2 215 -23 165 -62 301 -133 451 l-36 78 38 82 c101 221 139 399 139 643 -1 242 -38 410 -140 625 -185 391 -548 690 -964 795 -163 41 -372 59 -398 33 -9 -9 -12 -174 -12 -682 l0 -671 -683 683 c-455 455 -689 682 -703 682 -11 0 -25 -5 -32 -12z m1802 -118 c521 -134 917 -556 1023 -1087 21 -110 24 -374 4 -483 -25 -139 -109 -390 -130 -390 -4 0 -29 30 -56 67 -65 89 -201 225 -295 295 -215 160 -467 259 -734 289 l-106 12 0 670 0 670 91 -7 c50 -4 141 -20 203 -36z m-1084 -665 l635 -635 -638 0 -637 0 0 635 c0 349 1 635 3 635 1 0 288 -286 637 -635z m700 -1360 c0 -349 -1 -635 -3 -635 -1 0 -288 286 -637 635 l-635 635 638 0 637 0 0 -635z m249 619 c192 -28 395 -107 571 -223 103 -67 296 -257 364 -358 l48 -71 -53 -79 c-76 -109 -245 -276 -357 -351 -203 -135 -425 -214 -664 -236 l-68 -7 0 671 0 670 26 0 c15 0 74 -7 133 -16z m1086 -868 c51 -133 95 -335 95 -438 0 -17 -25 -18 -437 -18 l-438 0 130 64 c72 35 170 92 220 127 108 77 252 219 320 316 59 84 57 85 110 -51z"/>
+          </g>
+        </svg>
+        Pedir en línea
       </a>
     </div>
   </div>
@@ -1914,6 +1915,9 @@
       <span class="brand-name">Andino</span><span class="brand-sep">✦</span>
       <span class="brand-name">Makeno</span><span class="brand-sep">✦</span>
       <span class="brand-name">Protela</span><span class="brand-sep">✦</span>
+      <span class="brand-name">Loto del Sur</span><span class="brand-sep">✦</span>
+      <span class="brand-name">Ésika</span><span class="brand-sep">✦</span>
+      <span class="brand-name">Bibi Marini</span><span class="brand-sep">✦</span>
       <!-- duplicate for loop -->
       <span class="brand-name">Carolina Herrera</span><span class="brand-sep">✦</span>
       <span class="brand-name">Lancôme</span><span class="brand-sep">✦</span>
@@ -1927,6 +1931,9 @@
       <span class="brand-name">Andino</span><span class="brand-sep">✦</span>
       <span class="brand-name">Makeno</span><span class="brand-sep">✦</span>
       <span class="brand-name">Protela</span><span class="brand-sep">✦</span>
+      <span class="brand-name">Loto del Sur</span><span class="brand-sep">✦</span>
+      <span class="brand-name">Ésika</span><span class="brand-sep">✦</span>
+      <span class="brand-name">Bibi Marini</span><span class="brand-sep">✦</span>
     </div>
   </div>
 

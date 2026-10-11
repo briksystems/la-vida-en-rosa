@@ -51,7 +51,6 @@
     '<section class="py-marcas" id="pyMarcas" aria-label="Marcas con las que hemos trabajado" hidden><p class="py-marcas-label">Marcas que han confiado en nosotras</p><div class="py-marcas-wrap"><div class="clientes-marquee" id="pyMarcasPista"></div></div></section>' +
     '<div class="py-galeria" id="pyGaleria"></div>' +
     '<p class="py-vacio" id="pyVacio" hidden>Muy pronto más fotos de este proyecto.</p>' +
-    '<div class="banda" aria-hidden="true"></div>' +
     '<section class="py-cierre"><p>¿Quieres algo así para tu marca, tu evento o tu hogar?</p>' +
       '<a class="btn-primary" href="https://wa.me/573208654762?text=Hola!%20Vi%20sus%20proyectos%20y%20quiero%20cotizar" target="_blank" rel="noopener noreferrer">Escríbenos por WhatsApp</a></section>';
   document.body.appendChild(pyVista);

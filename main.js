@@ -6,38 +6,63 @@
   })();
 
   // ===== SPLASH SCREEN =====
+  // El texto "Flores realistas en papel." se escribe con sonido de máquina de escribir justo cuando la persona
+  // pulsa "Entrar" (ese clic es el permiso que el navegador exige para reproducir audio), y después se abre la página.
   (function() {
     const splash = document.getElementById('splash');
-    const seen = sessionStorage.getItem('splashSeen');
-    if (seen) { splash.style.display = 'none'; return; }
+    if (sessionStorage.getItem('splashSeen')) { splash.style.display = 'none'; return; }
     splash.querySelector('.splash-btn').focus({ preventScroll: true });
     document.body.style.overflow = 'hidden';
+    splash.querySelector('.splash-sub').textContent = '';
+  })();
 
-    // Typewriter effect on splash-sub
+  let heroSonidoFn = null, heroSonidoPendiente = false;
+  let splashAudio = null, splashIniciado = false;
+  function splashTecla(espacio) {
+    const ac = splashAudio;
+    if (!ac || ac.state !== 'running') return;
+    const t = ac.currentTime, dur = 0.045;
+    const buf = ac.createBuffer(1, Math.floor(ac.sampleRate * dur), ac.sampleRate), d = buf.getChannelData(0);
+    for (let k = 0; k < d.length; k++) d[k] = (Math.random() * 2 - 1) * Math.pow(1 - k / d.length, 3);
+    const src = ac.createBufferSource(); src.buffer = buf;
+    const f = ac.createBiquadFilter(); f.type = 'bandpass'; f.frequency.value = (espacio ? 900 : 1800) + Math.random() * 900; f.Q.value = 1.2;
+    const g = ac.createGain(); g.gain.value = espacio ? 0.2 : 0.35;
+    src.connect(f); f.connect(g); g.connect(ac.destination); src.start(t);
+  }
+  function splashCampana() {
+    const ac = splashAudio;
+    if (!ac || ac.state !== 'running') return;
+    const t = ac.currentTime, o = ac.createOscillator(), g = ac.createGain();
+    o.type = 'sine'; o.frequency.value = 1760;
+    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.12, t + 0.01); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.9);
+    o.connect(g); g.connect(ac.destination); o.start(t); o.stop(t + 0.95);
+  }
+  function startSplash() {
+    if (splashIniciado) return;
+    splashIniciado = true;
+    // el clic en "Entrar" es un gesto del usuario: el navegador deja activar el sonido del hero y de la máquina de escribir
+    if (heroSonidoFn) heroSonidoFn(true); else heroSonidoPendiente = true;
+    const splash = document.getElementById('splash');
+    splash.querySelector('.splash-btn').style.pointerEvents = 'none';
+    try { const AC = window.AudioContext || window.webkitAudioContext; if (AC) { splashAudio = new AC(); splashAudio.resume(); } } catch (e) {}
     const sub = splash.querySelector('.splash-sub');
     const text = 'Flores realistas en papel.';
     sub.textContent = '';
     let i = 0;
-    setTimeout(() => {
-      const timer = setInterval(() => {
-        sub.textContent += text[i];
-        i++;
-        if (i >= text.length) clearInterval(timer);
-      }, 52);
-    }, 1850); // start after line animation
-  })();
-
-  let heroSonidoFn = null, heroSonidoPendiente = false;
-  function startSplash() {
-    // el clic en "Entrar" es un gesto del usuario: el navegador deja activar el sonido del hero
-    if (heroSonidoFn) heroSonidoFn(true); else heroSonidoPendiente = true;
-    const splash = document.getElementById('splash');
-    splash.classList.add('leaving');
-    setTimeout(() => {
-      splash.style.display = 'none';
-      document.body.style.overflow = '';
-      sessionStorage.setItem('splashSeen', '1');
-    }, 1150);
+    const salir = () => {
+      splash.classList.add('leaving');
+      setTimeout(() => {
+        splash.style.display = 'none';
+        document.body.style.overflow = '';
+        sessionStorage.setItem('splashSeen', '1');
+      }, 1150);
+    };
+    const timer = setInterval(() => {
+      splashTecla(text[i] === ' ');
+      sub.textContent += text[i];
+      i++;
+      if (i >= text.length) { clearInterval(timer); setTimeout(splashCampana, 100); setTimeout(salir, 750); }
+    }, 55);
   }
 
   document.addEventListener('keydown', function(e) {

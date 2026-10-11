@@ -1,4 +1,4 @@
-// ===== PÁGINA DE INICIO =====
+  // ===== PÁGINA DE INICIO =====
   // Tienda: muestra las primeras 4 flores. El catálogo completo está en catalogo.html
   (function pintarTienda() {
     const tienda = document.getElementById('shopGrid');
@@ -38,18 +38,6 @@
       document.body.style.overflow = '';
       sessionStorage.setItem('splashSeen', '1');
     }, 1150);
-  }
-
-  // ===== CATEGORÍAS DE PROYECTOS =====
-  const CATEGORIAS = {
-    home:   { name: 'Home', tag: 'Portafolio', type: 'Decoración para espacios', desc: 'Flores de papel pensadas para el hogar: piezas que convierten una pared, una mesa o una esquina en un jardín que no se marchita.', images: ['https://i.imgur.com/CYUnrPc.jpg', 'https://i.imgur.com/nJgjuQM.jpg'] },
-    marcas: { name: 'Marcas', tag: 'Portafolio', type: 'Proyectos para marcas y eventos', desc: 'Escenografía, vitrinas y piezas para marcas y pasarelas. Hemos trabajado con Bronzini, Colombia Moda y revistas como Alo Novias.', images: ['https://i.imgur.com/vph7oNj.jpg', 'https://i.imgur.com/dQkquIZ.jpg'] },
-    novias: { name: 'Novias', tag: 'Portafolio', type: 'Colección Novias', desc: 'Bouquets, tocados y detalles para el día más importante. Flores realistas en papel que se quedan para siempre como recuerdo.', images: ['https://i.imgur.com/OVVzJIo.jpg', 'https://i.imgur.com/kNJG1sU.jpg', 'https://i.imgur.com/zRGKMLv.jpg'] },
-    rosa:   { name: '+Rosa', tag: 'Impacto social', type: 'Iniciativa +Rosa', desc: 'Nuestra iniciativa de impacto social: empleo para mujeres cabeza de familia y para hombres privados de la libertad.', images: ['https://i.imgur.com/9duLbcY.jpg', 'https://i.imgur.com/FKhudxX.jpg'] }
-  };
-  function openCategoria(key) {
-    const c = CATEGORIAS[key];
-    abrirLightbox(c.images, 0, c.name + ' · ' + c.type);
   }
 
   document.addEventListener('keydown', function(e) {

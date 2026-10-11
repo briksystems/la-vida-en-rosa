@@ -28,6 +28,8 @@
     { id: 'tulipan-huis-ten-bosch', nombre: 'Tulipán Huis Ten Bosch', precio: 40000, specs: ['Flor de 7 cms de diámetro', 'Tallo de 37 cms'], fotos: 5 },
     { id: 'zinnia', nombre: 'Zinnia', precio: 40000, specs: ['Flor de 9 cms de diámetro', 'Tallo de 38 cms'], fotos: 3 }
   ];
+  // orden alfabético: así no quedan flores del mismo color seguidas
+  PRODUCTOS.sort((a, b) => a.nombre.localeCompare(b.nombre, 'es'));
   PRODUCTOS.forEach(p => { p.miniatura = `assets/img/productos/${p.id}/${p.id}-thumb.jpg`; p.fotos = Array.from({ length: p.fotos }, (_, i) => `assets/img/productos/${p.id}/${p.id}-${i + 1}.jpg`); });
   const formatoPrecio = n => '$' + new Intl.NumberFormat('es-CO').format(n);
   function waProducto(p) { return `Hola, quiero pedir ${p.nombre} (precio unitario ${formatoPrecio(p.precio)}).`; }

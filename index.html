@@ -25,8 +25,10 @@
 
 <!-- ===== SPLASH SCREEN ===== -->
 <div id="splash" role="dialog" aria-label="Bienvenida">
-  <div class="splash-logo">
-    <img src="https://i.imgur.com/Ik00BP0.png" alt="La Vida en Rosa" fetchpriority="high">  </div>
+  <div class="splash-logo" role="img" aria-label="La Vida en Rosa">
+    <svg class="splash-mark" viewBox="0 0 402 343" fill="currentColor" aria-hidden="true" focusable="false"><use href="#lvr-mark"/></svg>
+    <span class="splash-word" aria-hidden="true"><span>LA VIDA</span><span>EN ROSA</span></span>
+  </div>
 
   <div class="splash-line"></div>
   <p class="splash-sub">Flores realistas en papel.</p>
@@ -64,7 +66,6 @@
     <li><a href="#proposito">Propósito</a></li>
     <li><a href="#proyectos">Proyectos</a></li>
     <li><a href="#shop">Shop</a></li>
-    <li><a href="#clientes">Clientes</a></li>
   </ul>
   <a href="#contacto" class="nav-cta">Contacto</a>
 </nav>
@@ -103,42 +104,8 @@
   </button>
 </section>
 
-<!-- ===== PROYECTOS ===== -->
-<section id="proyectos" aria-labelledby="proyectosTitulo">
-  <div class="proyectos-header reveal">
-    <div>
-      <p class="section-label">Portafolio</p>
-      <h2 class="section-title" id="proyectosTitulo">Nuestros<br><em>Proyectos</em></h2>
-    </div>
-  </div>
-  <div class="categorias-grid">
-    <button class="categoria-card reveal" type="button" onclick="openCategoria('home')">
-      <span class="categoria-img" role="img" aria-label="Colección Home" style="background-image:url('https://i.imgur.com/CYUnrPc.jpg')"></span>
-      <span class="categoria-name">Home</span>
-    </button>
-    <button class="categoria-card reveal" type="button" onclick="openCategoria('marcas')">
-      <span class="categoria-img" role="img" aria-label="Proyectos para marcas" style="background-image:url('https://i.imgur.com/vph7oNj.jpg'); background-position:center 15%;"></span>
-      <span class="categoria-name">Marcas</span>
-    </button>
-    <button class="categoria-card reveal" type="button" onclick="openCategoria('novias')">
-      <span class="categoria-img" role="img" aria-label="Colección Novias" style="background-image:url('https://i.imgur.com/OVVzJIo.jpg')"></span>
-      <span class="categoria-name">Novias</span>
-    </button>
-    <button class="categoria-card reveal" type="button" onclick="openCategoria('rosa')">
-      <span class="categoria-img" role="img" aria-label="Iniciativa +Rosa" style="background-image:url('https://i.imgur.com/9duLbcY.jpg')"></span>
-      <span class="categoria-name">+Rosa</span>
-    </button>
-  </div>
-</section>
-
-
-<!-- Wave: Proyectos → Shop -->
-<div class="wave-sep" style="background:var(--light); margin-top:-2px;">
-  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0,20 C240,60 480,0 720,30 C960,60 1200,0 1440,20 L1440,60 L0,60 Z" fill="white"/>
-  </svg>
-</div>
 <!-- ===== SHOP ===== -->
+<div class="sep" style="--to:var(--white)" aria-hidden="true"></div>
 <section id="shop">
   <div class="shop-header reveal">
     <div>
@@ -157,6 +124,26 @@
   </div>
 </section>
 
+<!-- ===== PROYECTOS · PARTE 1 ===== -->
+<section id="proyectos" aria-labelledby="proyectosTitulo">
+  <div class="proyectos-header reveal">
+    <div>
+      <p class="section-label">Portafolio</p>
+      <h2 class="section-title" id="proyectosTitulo">Nuestros<br><em>Proyectos</em></h2>
+    </div>
+  </div>
+  <div class="categorias-grid categorias-dos">
+    <button class="categoria-card reveal" type="button" onclick="abrirProyecto('marcas')">
+      <span class="categoria-img" role="img" aria-label="Proyectos para marcas" style="background-image:url('assets/img/proyectos/portada-marcas.jpg')"></span>
+      <span class="categoria-name">Marcas</span>
+    </button>
+    <button class="categoria-card reveal" type="button" onclick="abrirProyecto('novias')">
+      <span class="categoria-img" role="img" aria-label="Colección Novias" style="background-image:url('assets/img/proyectos/portada-novias.jpg')"></span>
+      <span class="categoria-name">Novias</span>
+    </button>
+  </div>
+</section>
+
 <!-- ===== VIDEO MODAL ===== -->
 <div id="videoModal" role="dialog" aria-modal="true" aria-label="Video" hidden>
   <button class="video-close" type="button" onclick="closeVideo()" aria-label="Cerrar video">&#10005;</button>
@@ -164,10 +151,10 @@
 </div>
 
 <!-- ===== ACERCA DE ===== -->
+<div class="sep" style="--to:var(--white)" aria-hidden="true"></div>
 <section id="acerca">
   <div class="about-image-stack reveal">
-    <div class="about-img about-img-main" style="background-image:url('assets/img/esencia-1.jpg'); background-size:cover; background-position:center;"></div>
-    <div class="about-img about-img-accent" style="background-image:url('assets/img/esencia-2.jpg'); background-size:cover; background-position:center;"></div>
+    <div class="about-img about-img-main"><img src="assets/img/esencia.jpg" alt="Una integrante del equipo entre flores de papel" width="1200" height="1600" loading="lazy" decoding="async"></div>
     <div class="about-geo-stamp">
       <svg width="40" height="40" viewBox="0 0 402 343" fill="#5e53a2" aria-hidden="true" focusable="false"><use href="#lvr-mark"/></svg>
     </div>
@@ -212,12 +199,28 @@
 </section>
 
 
-<!-- Wave: Acerca → Propósito -->
-<div class="wave-sep" style="background:white; margin-top:-2px;">
-  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0,20 C180,60 360,0 540,30 C720,60 900,0 1080,30 C1260,60 1380,10 1440,20 L1440,60 L0,60 Z" fill="#2a2a2a"/>
-  </svg>
-</div>
+<!-- ===== PROYECTOS · PARTE 2 ===== -->
+<section id="proyectos-2" aria-labelledby="proyectos2Titulo">
+  <div class="proyectos-header reveal">
+    <div>
+      <p class="section-label">Más de nuestro trabajo</p>
+      <h2 class="section-title" id="proyectos2Titulo">Hogar e<br><em>Impacto Social</em></h2>
+    </div>
+  </div>
+  <div class="categorias-grid categorias-dos">
+    <button class="categoria-card reveal" type="button" onclick="abrirProyecto('home')">
+      <span class="categoria-img" role="img" aria-label="Colección Home" style="background-image:url('assets/img/proyectos/portada-home.jpg')"></span>
+      <span class="categoria-name">Home</span>
+    </button>
+    <button class="categoria-card reveal" type="button" onclick="abrirProyecto('rosa')">
+      <span class="categoria-img" role="img" aria-label="Iniciativa +Rosa" style="background-image:url('assets/img/proyectos/portada-rosa.jpg')"></span>
+      <span class="categoria-name">+Rosa</span>
+    </button>
+  </div>
+</section>
+
+<figure class="foto-banda"><img src="assets/img/principios.jpg" alt="Una integrante del equipo junto a flores gigantes de papel rosa" width="2000" height="1333" loading="lazy" decoding="async"></figure>
+<div class="sep" style="--to:var(--dark)" aria-hidden="true"></div>
 <!-- ===== PROPÓSITO ===== -->
 <section id="proposito">
   <div class="proposito-grid">
@@ -275,11 +278,6 @@
 
 
 <!-- Wave: Propósito → Servicios -->
-<div class="wave-sep" style="background:#2a2a2a; margin-top:-2px;">
-  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0,40 C200,10 400,60 600,30 C800,0 1000,50 1200,30 C1320,20 1400,40 1440,35 L1440,60 L0,60 Z" fill="var(--rosa)"/>
-  </svg>
-</div>
 <!-- ===== SERVICIOS ===== -->
 <div class="servicios-strip">
   <p class="servicios-label">¿Qué hacemos?</p>
@@ -319,121 +317,18 @@
 
 
 <!-- Wave: Servicios → Proyectos -->
-<div class="wave-sep" style="background:var(--rosa); margin-top:-2px;">
-  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0,30 C120,0 240,60 360,30 C480,0 600,60 720,30 C840,0 960,60 1080,30 C1200,0 1320,60 1440,30 L1440,60 L0,60 Z" fill="var(--light)"/>
-  </svg>
-</div>
-<!-- ===== CLIENTES ===== -->
-<section id="clientes">
-  <div class="clientes-header reveal">
-    <p class="section-label">Han Confiado en Nosotras</p>
-    <h2 class="section-title">Nuestros<br><em>Clientes</em></h2>
-  </div>
-
-  <div class="clientes-marquee-wrap reveal">
-    <div class="clientes-marquee">
-      <span class="brand-name">Carolina Herrera</span><span class="brand-sep">✦</span>
-      <span class="brand-name">Lancôme</span><span class="brand-sep">✦</span>
-      <span class="brand-name">Bronzini</span><span class="brand-sep">✦</span>
-      <span class="brand-name">Seven Seven</span><span class="brand-sep">✦</span>
-      <span class="brand-name">Isabel Henao</span><span class="brand-sep">✦</span>
-      <span class="brand-name">Atelier Olfativo</span><span class="brand-sep">✦</span>
-      <span class="brand-name">Gloria Saldarriaga</span><span class="brand-sep">✦</span>
-      <span class="brand-name">Puig</span><span class="brand-sep">✦</span>
-      <span class="brand-name">Oslé Home Decor</span><span class="brand-sep">✦</span>
-      <span class="brand-name">Andino</span><span class="brand-sep">✦</span>
-      <span class="brand-name">Makeno</span><span class="brand-sep">✦</span>
-      <span class="brand-name">Protela</span><span class="brand-sep">✦</span>
-      <span class="brand-name">Loto del Sur</span><span class="brand-sep">✦</span>
-      <span class="brand-name">Ésika</span><span class="brand-sep">✦</span>
-      <span class="brand-name">Bibi Marini</span><span class="brand-sep">✦</span>
-      <!-- duplicate for loop -->
-      <span class="brand-name">Carolina Herrera</span><span class="brand-sep">✦</span>
-      <span class="brand-name">Lancôme</span><span class="brand-sep">✦</span>
-      <span class="brand-name">Bronzini</span><span class="brand-sep">✦</span>
-      <span class="brand-name">Seven Seven</span><span class="brand-sep">✦</span>
-      <span class="brand-name">Isabel Henao</span><span class="brand-sep">✦</span>
-      <span class="brand-name">Atelier Olfativo</span><span class="brand-sep">✦</span>
-      <span class="brand-name">Gloria Saldarriaga</span><span class="brand-sep">✦</span>
-      <span class="brand-name">Puig</span><span class="brand-sep">✦</span>
-      <span class="brand-name">Oslé Home Decor</span><span class="brand-sep">✦</span>
-      <span class="brand-name">Andino</span><span class="brand-sep">✦</span>
-      <span class="brand-name">Makeno</span><span class="brand-sep">✦</span>
-      <span class="brand-name">Protela</span><span class="brand-sep">✦</span>
-      <span class="brand-name">Loto del Sur</span><span class="brand-sep">✦</span>
-      <span class="brand-name">Ésika</span><span class="brand-sep">✦</span>
-      <span class="brand-name">Bibi Marini</span><span class="brand-sep">✦</span>
-    </div>
-  </div>
-
-  <div class="clientes-feature reveal">
-    <div class="feature-item">
-      <div class="feature-icon">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--viola)" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-      </div>
-      <div class="feature-label">Colombia Moda 2019</div>
-      <div class="feature-desc">Participamos en la pasarela Bronzini Alma Rosa</div>
-    </div>
-    <div class="feature-item">
-      <div class="feature-icon">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--viola)" stroke-width="1.5"><rect x="2" y="7" width="20" height="15" rx="2"/><path d="M16 3l-4 4-4-4"/></svg>
-      </div>
-      <div class="feature-label">Canal RCN</div>
-      <div class="feature-desc">Invitadas al programa El Desayuno de RCN</div>
-    </div>
-    <div class="feature-item">
-      <div class="feature-icon">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--viola)" stroke-width="1.5"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
-      </div>
-      <div class="feature-label">Revista Alo Novias</div>
-      <div class="feature-desc">Publicadas en la edición de tendencias nupciales</div>
-    </div>
-  </div>
-</section>
 
 
 <!-- Wave: Shop → Clientes -->
-<div class="wave-sep" style="background:var(--light); margin-top:-2px;">
-  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0,35 C160,10 320,55 480,30 C640,5 800,55 960,30 C1120,5 1300,50 1440,35 L1440,60 L0,60 Z" fill="white"/>
-  </svg>
-</div>
 <!-- ===== TESTIMONIO ===== -->
+<div class="sep" style="--to:var(--white)" aria-hidden="true"></div>
 <div class="testimonios reveal">
   <p class="testimonio-text">"Ha sido un camino de construir y trabajar por las mujeres, empoderándolas para alcanzar sus sueños a través del arte de crear hermosas piezas en papel."</p>
   <p class="testimonio-author">Equipo La Vida en Rosa · Bogotá, Colombia</p>
 </div>
 
 
-<!-- Wave: Testimonios → Iniciativa -->
-<div class="wave-sep" style="background:white; margin-top:-2px;">
-  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0,25 C180,55 360,5 540,35 C720,60 900,10 1080,35 C1260,55 1380,20 1440,25 L1440,60 L0,60 Z" fill="var(--viola)"/>
-  </svg>
-</div>
-<!-- ===== INICIATIVA +ROSA ===== -->
-<div class="iniciativa reveal">
-  <div class="iniciativa-badge">
-    <div class="badge-plus">+</div>
-    <div class="badge-word">Rosa</div>
-  </div>
-  <div>
-    <h3 class="iniciativa-title">Nuestro <em>Impacto Social</em></h3>
-    <p class="iniciativa-body">
-      La iniciativa +Rosa nació de nuestra visión de impactar la vida de muchas mujeres. Hemos generado empleo para mujeres cabeza de familia y hombres privados de la libertad, razones que nos motivan a continuar trabajando con amor y responsabilidad cada día.
-    </p>
-    <a href="#contacto" class="btn-white" style="background:rgba(255,255,255,0.1); color:var(--rosa);">Conoce más sobre +Rosa</a>
-  </div>
-</div>
-
-
-<!-- Wave: Iniciativa → Contacto -->
-<div class="wave-sep" style="background:var(--viola); margin-top:-2px;">
-  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0,30 C120,60 240,0 360,30 C480,60 600,0 720,30 C840,60 960,0 1080,30 C1200,60 1320,0 1440,30 L1440,60 L0,60 Z" fill="#2a2a2a"/>
-  </svg>
-</div>
+<!-- Wave: Testimonio → Contacto -->
 <!-- ===== CONTACTO ===== -->
 <section id="contacto">
   <div class="contacto-left reveal">
@@ -512,6 +407,7 @@
 </section>
 
 </main>
+<div class="banda" aria-hidden="true"></div>
 <!-- ===== FOOTER ===== -->
 <footer>
   <div class="footer-top">
@@ -543,8 +439,7 @@
         <li><a href="#proposito">Propósito</a></li>
         <li><a href="#proyectos">Proyectos</a></li>
         <li><a href="#shop">Shop</a></li>
-        <li><a href="#clientes">Clientes</a></li>
-        <li><a href="#contacto">Contacto</a></li>
+            <li><a href="#contacto">Contacto</a></li>
       </ul>
     </div>
     <div class="footer-col">
@@ -574,6 +469,7 @@
 <script src="productos.js" defer></script>
 <script src="comun.js" defer></script>
 <script src="producto.js" defer></script>
+<script src="proyectos.js" defer></script>
 <script src="main.js" defer></script>
 </body>
 </html>

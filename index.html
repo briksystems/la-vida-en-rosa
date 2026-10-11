@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Raleway:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <a class="skip-link" href="#contenido">Saltar al contenido</a>
@@ -71,8 +71,14 @@
 
 <!-- ===== HERO ===== -->
 <main id="contenido">
-<section id="inicio">
-  <div class="hero-left">
+<section id="inicio" class="hero-video" aria-label="La Vida en Rosa">
+  <!-- Imagen quieta: se ve de inmediato y queda de respaldo si el video no carga o el usuario ahorra datos -->
+  <div class="hero-media" style="background-image:url('assets/img/hero-poster.jpg')">
+    <video id="heroVideo" muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"
+           data-src="assets/video/hero.mp4" data-src-mobile="assets/video/hero-mobile.mp4"></video>
+  </div>
+  <div class="hero-shade"></div>
+  <div class="hero-content">
     <p class="hero-eyebrow">Flores de Papel · Bogotá, Colombia</p>
     <h1 class="hero-title">La Vida<br><em>en Rosa</em></h1>
     <p class="hero-subtitle">Pliegues que florecen en nuestras manos</p>
@@ -80,48 +86,88 @@
     <div class="hero-buttons">
       <a href="#proyectos" class="btn-primary">Ver Proyectos</a>
       <a href="#shop" class="btn-outline">Tienda Online</a>
+      <!-- Pega aquí el enlace del video completo (YouTube/Vimeo no listado) en data-embed. Si queda vacío, el botón se oculta. -->
+      <button class="hero-watch" id="heroWatch" type="button" data-embed="" data-video="" hidden>
+        <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z" fill="currentColor"/></svg>
+        Ver video completo
+      </button>
     </div>
-    <!-- Decorative geo -->
-    <svg class="hero-geo" viewBox="0 0 200 200" fill="none">
-      <path d="M20 20 L100 100 L20 180 Z" stroke="#5e53a2" stroke-width="1"/>
-      <path d="M100 20 L100 180" stroke="#5e53a2" stroke-width="1"/>
-      <circle cx="140" cy="100" r="80" stroke="#5e53a2" stroke-width="1"/>
-    </svg>
   </div>
-  <div class="hero-right">
-    <div class="hero-mosaic">
-      <div class="mosaic-cell">
-        <div class="fill fill-1" style="background-image:url('https://i.imgur.com/dTbpFsz.jpg')"></div>
-        <div class="mosaic-label">Peonias · Papel Crepé</div>
-      </div>
-      <div class="mosaic-cell">
-        <div class="fill fill-2" style="background-image:url('https://i.imgur.com/jRUhb9j.jpg')"></div>
-        <div class="mosaic-label">Hortensias</div>
-      </div>
-      <div class="mosaic-cell">
-        <div class="fill fill-3" style="background-image:url('https://i.imgur.com/vPEQlYI.jpg')"></div>
-        <div class="mosaic-label">Ranúnculus</div>
-      </div>
-      <div class="mosaic-cell">
-        <div class="fill fill-4" style="background-image:url('https://i.imgur.com/OVVzJIo.jpg')"></div>
-        <div class="mosaic-label">Colección Novias</div>
-      </div>
+  <button class="hero-sound" id="heroSound" type="button" aria-pressed="false" aria-label="Activar sonido del video" hidden>
+    <svg class="i-mute" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="m22 9-6 6M16 9l6 6"/></svg>
+    <svg class="i-vol" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg>
+  </button>
+  <button class="hero-toggle" id="heroToggle" type="button" aria-label="Pausar video de fondo" hidden>
+    <svg class="i-pause" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1h3v12H3zM8 1h3v12H8z" fill="currentColor"/></svg>
+    <svg class="i-play" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9-5.5z" fill="currentColor"/></svg>
+  </button>
+</section>
+
+<!-- ===== PROYECTOS ===== -->
+<section id="proyectos" aria-labelledby="proyectosTitulo">
+  <div class="proyectos-header reveal">
+    <div>
+      <p class="section-label">Portafolio</p>
+      <h2 class="section-title" id="proyectosTitulo">Nuestros<br><em>Proyectos</em></h2>
     </div>
+  </div>
+  <div class="categorias-grid">
+    <button class="categoria-card reveal" type="button" onclick="openCategoria('home')">
+      <span class="categoria-img" role="img" aria-label="Colección Home" style="background-image:url('https://i.imgur.com/CYUnrPc.jpg')"></span>
+      <span class="categoria-name">Home</span>
+    </button>
+    <button class="categoria-card reveal" type="button" onclick="openCategoria('marcas')">
+      <span class="categoria-img" role="img" aria-label="Proyectos para marcas" style="background-image:url('https://i.imgur.com/vph7oNj.jpg'); background-position:center 15%;"></span>
+      <span class="categoria-name">Marcas</span>
+    </button>
+    <button class="categoria-card reveal" type="button" onclick="openCategoria('novias')">
+      <span class="categoria-img" role="img" aria-label="Colección Novias" style="background-image:url('https://i.imgur.com/OVVzJIo.jpg')"></span>
+      <span class="categoria-name">Novias</span>
+    </button>
+    <button class="categoria-card reveal" type="button" onclick="openCategoria('rosa')">
+      <span class="categoria-img" role="img" aria-label="Iniciativa +Rosa" style="background-image:url('https://i.imgur.com/9duLbcY.jpg')"></span>
+      <span class="categoria-name">+Rosa</span>
+    </button>
   </div>
 </section>
 
 
-<!-- Wave: Hero → Acerca -->
-<div class="wave-sep" style="background:var(--rosa); margin-top:-2px;">
+<!-- Wave: Proyectos → Shop -->
+<div class="wave-sep" style="background:var(--light); margin-top:-2px;">
   <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0,30 C120,60 240,0 360,30 C480,60 600,0 720,30 C840,60 960,0 1080,30 C1200,60 1320,0 1440,30 L1440,60 L0,60 Z" fill="white"/>
+    <path d="M0,20 C240,60 480,0 720,30 C960,60 1200,0 1440,20 L1440,60 L0,60 Z" fill="white"/>
   </svg>
 </div>
+<!-- ===== SHOP ===== -->
+<section id="shop">
+  <div class="shop-header reveal">
+    <div>
+      <p class="section-label">Tienda Online</p>
+      <h2 class="section-title">Flores que<br><em>duran forever</em></h2>
+    </div>
+    <a class="btn-outline" href="catalogo.html">Ver Catálogo Completo</a>
+  </div>
+  <div class="shop-grid reveal" id="shopGrid"></div>
+  <div class="shop-cta-banner reveal">
+    <div>
+      <div class="shop-cta-text">¿Algo especial en mente?</div>
+      <div class="shop-cta-sub">Todos nuestros arreglos son diseñados exclusivamente según requerimiento del cliente</div>
+    </div>
+    <a href="https://wa.me/573208654762?text=Hola!%20Quiero%20hacer%20un%20pedido%20personalizado" class="btn-white" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:10px;"><svg width="22" height="22"   style="flex-shrink:0;" viewBox="0 0 402 343" fill="currentColor" aria-hidden="true" focusable="false"><use href="#lvr-mark"/></svg> Pedido Personalizado</a>
+  </div>
+</section>
+
+<!-- ===== VIDEO MODAL ===== -->
+<div id="videoModal" role="dialog" aria-modal="true" aria-label="Video" hidden>
+  <button class="video-close" type="button" onclick="closeVideo()" aria-label="Cerrar video">&#10005;</button>
+  <div class="video-stage" id="videoStage"></div>
+</div>
+
 <!-- ===== ACERCA DE ===== -->
 <section id="acerca">
   <div class="about-image-stack reveal">
-    <div class="about-img about-img-main" style="background-image:url('https://i.imgur.com/9duLbcY.jpg'); background-size:cover; background-position:center;"></div>
-    <div class="about-img about-img-accent" style="background-image:url('https://i.imgur.com/FKhudxX.jpg'); background-size:cover; background-position:center;"></div>
+    <div class="about-img about-img-main" style="background-image:url('assets/img/esencia-1.jpg'); background-size:cover; background-position:center;"></div>
+    <div class="about-img about-img-accent" style="background-image:url('assets/img/esencia-2.jpg'); background-size:cover; background-position:center;"></div>
     <div class="about-geo-stamp">
       <svg width="40" height="40" viewBox="0 0 402 343" fill="#5e53a2" aria-hidden="true" focusable="false"><use href="#lvr-mark"/></svg>
     </div>
@@ -276,195 +322,6 @@
 <div class="wave-sep" style="background:var(--rosa); margin-top:-2px;">
   <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M0,30 C120,0 240,60 360,30 C480,0 600,60 720,30 C840,0 960,60 1080,30 C1200,0 1320,60 1440,30 L1440,60 L0,60 Z" fill="var(--light)"/>
-  </svg>
-</div>
-<!-- ===== PROYECTOS ===== -->
-<section id="proyectos">
-  <div class="proyectos-header reveal">
-    <div>
-      <p class="section-label">Portafolio</p>
-      <h2 class="section-title">Nuestros<br><em>Proyectos</em></h2>
-    </div>
-    <div class="filter-tabs">
-      <button class="tab-btn active" type="button" aria-pressed="true" onclick="filterGallery(this, 'todos')">Todos</button>
-      <button class="tab-btn" type="button" aria-pressed="false" onclick="filterGallery(this, 'novias')">Novias</button>
-      <button class="tab-btn" type="button" aria-pressed="false" onclick="filterGallery(this, 'marcas')">Marcas</button>
-      <button class="tab-btn" type="button" aria-pressed="false" onclick="filterGallery(this, 'home')">Home</button>
-    </div>
-  </div>
-  <div class="gallery-grid reveal">
-    <!-- 1. Bouquets: 2col × 2row (grande horizontal) -->
-    <div class="gallery-item" data-cat="novias">
-      <div class="gallery-fill g1" style="background-image:url('https://i.imgur.com/kNJG1sU.jpg')"></div>
-      <div class="gallery-overlay"><span class="gallery-caption">Colección Novias · Bouquets</span></div>
-    </div>
-    <!-- 2. Bronzini: 1col × 2row (vertical) -->
-    <div class="gallery-item" data-cat="marcas">
-      <div class="gallery-fill g2" style="background-image:url('https://i.imgur.com/vph7oNj.jpg'); background-position: center 15%;"></div>
-      <div class="gallery-overlay"><span class="gallery-caption">Bronzini · Colombia Moda 2019</span></div>
-    </div>
-    <!-- 3. Home Peonias: 1col × 2row (vertical) -->
-    <div class="gallery-item" data-cat="home">
-      <div class="gallery-fill g4" style="background-image:url('https://i.imgur.com/nJgjuQM.jpg'); background-size: contain; background-color: #f9f0ee;"></div>
-      <div class="gallery-overlay"><span class="gallery-caption">Home Collection · Peonias</span></div>
-    </div>
-    <!-- 4. Alo Novias: 2col × 2row (grande horizontal) -->
-    <div class="gallery-item" data-cat="marcas">
-      <div class="gallery-fill g6" style="background-image:url('https://i.imgur.com/dQkquIZ.jpg'); background-position: center 20%;"></div>
-      <div class="gallery-overlay"><span class="gallery-caption">Styling · Revista Alo Novias</span></div>
-    </div>
-    <!-- 5. Home Flores: 1col × 2row (vertical) -->
-    <div class="gallery-item" data-cat="home">
-      <div class="gallery-fill" style="background-image:url('https://i.imgur.com/CYUnrPc.jpg')"></div>
-      <div class="gallery-overlay"><span class="gallery-caption">Home · Flores</span></div>
-    </div>
-    <!-- 6. Novias Tocados: 1col × 2row (vertical) -->
-    <div class="gallery-item" data-cat="novias">
-      <div class="gallery-fill" style="background-image:url('https://i.imgur.com/zRGKMLv.jpg')"></div>
-      <div class="gallery-overlay"><span class="gallery-caption">Colección Novias · Tocados</span></div>
-    </div>
-  </div>
-</section>
-
-
-<!-- Wave: Proyectos → Shop -->
-<div class="wave-sep" style="background:var(--light); margin-top:-2px;">
-  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0,20 C240,60 480,0 720,30 C960,60 1200,0 1440,20 L1440,60 L0,60 Z" fill="white"/>
-  </svg>
-</div>
-<!-- ===== SHOP ===== -->
-<section id="shop">
-  <div class="shop-header reveal">
-    <div>
-      <p class="section-label">Tienda Online</p>
-      <h2 class="section-title">Flores que<br><em>duran forever</em></h2>
-    </div>
-    <button class="btn-outline" onclick="openCatalog()">Ver Catálogo Completo</button>
-  </div>
-  <div class="shop-grid reveal">
-
-    <div class="product-card" tabindex="0" role="button" onclick="openProduct('Ranúnculus Rosa','Flor Individual','Desde $45k','Una de nuestras flores más delicadas y queridas. Hecha en papel crepé de alta calidad, cada pétalo es trabajado a mano para lograr esa textura natural tan característica del ranúnculus real.',['https://i.imgur.com/aAMUe48.jpg','https://i.imgur.com/aAMUe48.jpg','https://i.imgur.com/aAMUe48.jpg'],'Más Amada','Ranúnculus Rosa')">
-      <div class="product-img"><div class="product-fill p1" style="background-image:url(https://i.imgur.com/aAMUe48.jpg)"></div><span class="product-tag">Más Amada</span><div class="product-hover-overlay"><span class="ver-detalle-btn">Ver Detalle</span></div></div>
-      <div class="product-name">Ranúnculus Rosa</div><div class="product-type">Flor Individual</div>
-      <div class="product-footer"><div class="product-price">Desde $45k</div><button class="product-action" onclick="event.stopPropagation();window.open('https://wa.me/573208654762?text=Quiero%20pedir%20Ranúnculus%20Rosa','_blank','noopener')">Pedir</button></div>
-    </div>
-
-    <div class="product-card" tabindex="0" role="button" onclick="openProduct('Anemone Lila','Flor Individual','Desde $45k','La anemone es una flor de gran elegancia y contraste. Su centro oscuro y pétalos delicados en tonos lila y blanco la hacen perfecta para arreglos sofisticados y tocados de novia.',['https://i.imgur.com/E560ky2.jpg','https://i.imgur.com/E560ky2.jpg','https://i.imgur.com/E560ky2.jpg'],'Nuevo','Anemone Lila')">
-      <div class="product-img"><div class="product-fill p2" style="background-image:url(https://i.imgur.com/E560ky2.jpg)"></div><span class="product-tag">Nuevo</span><div class="product-hover-overlay"><span class="ver-detalle-btn">Ver Detalle</span></div></div>
-      <div class="product-name">Anemone Lila</div><div class="product-type">Flor Individual</div>
-      <div class="product-footer"><div class="product-price">Desde $45k</div><button class="product-action" onclick="event.stopPropagation();window.open('https://wa.me/573208654762?text=Quiero%20pedir%20Anemone%20Lila','_blank','noopener')">Pedir</button></div>
-    </div>
-
-    <div class="product-card" tabindex="0" role="button" onclick="openProduct('Bouquet Novia','Arreglo Personalizado','Cotización','Cada bouquet de novia es diseñado exclusivamente según los sueños de la novia. Trabajamos con una paleta de colores a elección, combinando diferentes flores de papel para crear una pieza única.',['https://i.imgur.com/OVVzJIo.jpg','https://i.imgur.com/OVVzJIo.jpg','https://i.imgur.com/OVVzJIo.jpg'],'','Bouquet Novia')">
-      <div class="product-img"><div class="product-fill p3" style="background-image:url(https://i.imgur.com/OVVzJIo.jpg)"></div><div class="product-hover-overlay"><span class="ver-detalle-btn">Ver Detalle</span></div></div>
-      <div class="product-name">Bouquet Novia</div><div class="product-type">Arreglo Personalizado</div>
-      <div class="product-footer"><div class="product-price">Cotización</div><button class="product-action" onclick="event.stopPropagation();window.open('https://wa.me/573208654762?text=Quiero%20cotizar%20Bouquet%20Novia','_blank','noopener')">Pedir</button></div>
-    </div>
-
-    <div class="product-card" tabindex="0" role="button" onclick="openProduct('Pieza de Lujo','Arreglo Gran Formato','Cotización','Nuestras piezas de lujo son instalaciones florales de gran impacto para espacios exclusivos, vitrinas, sesiones de foto o como regalo memorable. Cada pieza se diseña a medida.',['https://i.imgur.com/7kf6XSW.jpg','https://i.imgur.com/7kf6XSW.jpg','https://i.imgur.com/7kf6XSW.jpg'],'Exclusivo','Pieza de Lujo')">
-      <div class="product-img"><div class="product-fill p4" style="background-image:url(https://i.imgur.com/7kf6XSW.jpg)"></div><span class="product-tag">Exclusivo</span><div class="product-hover-overlay"><span class="ver-detalle-btn">Ver Detalle</span></div></div>
-      <div class="product-name">Pieza de Lujo</div><div class="product-type">Arreglo Gran Formato</div>
-      <div class="product-footer"><div class="product-price">Cotización</div><button class="product-action" onclick="event.stopPropagation();window.open('https://wa.me/573208654762?text=Quiero%20cotizar%20Pieza%20de%20Lujo','_blank','noopener')">Pedir</button></div>
-    </div>
-
-  </div>
-  <div class="shop-cta-banner reveal">
-    <div>
-      <div class="shop-cta-text">¿Algo especial en mente?</div>
-      <div class="shop-cta-sub">Todos nuestros arreglos son diseñados exclusivamente según requerimiento del cliente</div>
-    </div>
-    <a href="https://wa.me/573208654762?text=Hola!%20Quiero%20hacer%20un%20pedido%20personalizado" class="btn-white" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;gap:10px;"><svg width="22" height="22"   style="flex-shrink:0;" viewBox="0 0 402 343" fill="currentColor" aria-hidden="true" focusable="false"><use href="#lvr-mark"/></svg> Pedido Personalizado</a>
-  </div>
-</section>
-
-<!-- ===== PRODUCT DETAIL MODAL ===== -->
-<div id="productModal" role="dialog" aria-modal="true" aria-labelledby="pmName" hidden>
-  <div class="product-modal-inner">
-    <div class="product-modal-photos">
-      <img id="pmImg" src="" alt="" width="800" height="800">
-      <button class="pm-arrow pm-arrow-left" type="button" onclick="pmPrev()" aria-label="Foto anterior">&#8249;</button>
-      <button class="pm-arrow pm-arrow-right" type="button" onclick="pmNext()" aria-label="Foto siguiente">&#8250;</button>
-      <div class="pm-dots" id="pmDots"></div>
-    </div>
-    <div class="product-modal-info">
-      <button class="pm-close" type="button" onclick="closeProduct()" aria-label="Cerrar">&#10005;</button>
-      <p class="pm-tag" id="pmTag"></p>
-      <h2 class="pm-name" id="pmName"></h2>
-      <p class="pm-type" id="pmType"></p>
-      <p class="pm-price" id="pmPrice"></p>
-      <p class="pm-desc-label">Descripción</p>
-      <p class="pm-desc" id="pmDesc"></p>
-      <a id="pmWa" href="#" target="_blank" rel="noopener noreferrer" class="pm-wa-btn">
-        <svg width="28" height="28"   style="flex-shrink:0;" viewBox="0 0 402 343" fill="white" aria-hidden="true" focusable="false"><use href="#lvr-mark"/></svg>
-        Pedir en línea
-      </a>
-    </div>
-  </div>
-</div>
-
-<!-- ===== CATÁLOGO PÁGINA COMPLETA ===== -->
-<div id="catalogPage" role="dialog" aria-modal="true" aria-label="Catálogo completo" hidden>
-  <div class="catalog-page-header">
-    <div class="catalog-back-wrap">
-      <button class="catalog-back" type="button" onclick="closeCatalog()">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-        Volver
-      </button>
-      <div style="width:1px; height:20px; background:var(--rosa-deep);"></div>
-      <span style="font-family:var(--sans); font-weight:300; font-size:12px; letter-spacing:0.2em; color:var(--dark); text-transform:uppercase;">Catálogo Completo</span>
-    </div>
-    <div style="font-family:var(--sans); font-weight:300; font-size:11px; color:var(--mid); letter-spacing:0.1em;">8 productos · La Vida en Rosa</div>
-  </div>
-  <div class="catalog-page-grid">
-    <div class="product-card" tabindex="0" role="button" onclick="openProduct('Ranúnculus Rosa','Flor Individual','Desde $45k','Una de nuestras flores más delicadas y queridas. Hecha en papel crepé de alta calidad, cada pétalo es trabajado a mano para lograr esa textura natural tan característica del ranúnculus real.',['https://i.imgur.com/aAMUe48.jpg','https://i.imgur.com/aAMUe48.jpg','https://i.imgur.com/aAMUe48.jpg'],'Más Amada','Ranúnculus Rosa')">
-      <div class="product-img"><div class="product-fill p1" style="background-image:url(https://i.imgur.com/aAMUe48.jpg)"></div><span class="product-tag">Más Amada</span><div class="product-hover-overlay"><span class="ver-detalle-btn">Ver Detalle</span></div></div>
-      <div class="product-name">Ranúnculus Rosa</div><div class="product-type">Flor Individual</div>
-      <div class="product-footer"><div class="product-price">Desde $45k</div><button class="product-action" onclick="event.stopPropagation();window.open('https://wa.me/573208654762','_blank','noopener')">Pedir</button></div>
-    </div>
-    <div class="product-card" tabindex="0" role="button" onclick="openProduct('Anemone Lila','Flor Individual','Desde $45k','La anemone es una flor de gran elegancia y contraste. Su centro oscuro y pétalos delicados en tonos lila y blanco la hacen perfecta para arreglos sofisticados y tocados de novia.',['https://i.imgur.com/E560ky2.jpg','https://i.imgur.com/E560ky2.jpg','https://i.imgur.com/E560ky2.jpg'],'Nuevo','Anemone Lila')">
-      <div class="product-img"><div class="product-fill p2" style="background-image:url(https://i.imgur.com/E560ky2.jpg)"></div><span class="product-tag">Nuevo</span><div class="product-hover-overlay"><span class="ver-detalle-btn">Ver Detalle</span></div></div>
-      <div class="product-name">Anemone Lila</div><div class="product-type">Flor Individual</div>
-      <div class="product-footer"><div class="product-price">Desde $45k</div><button class="product-action" onclick="event.stopPropagation();window.open('https://wa.me/573208654762','_blank','noopener')">Pedir</button></div>
-    </div>
-    <div class="product-card" tabindex="0" role="button" onclick="openProduct('Bouquet Novia','Arreglo Personalizado','Cotización','Cada bouquet de novia es diseñado exclusivamente según los sueños de la novia. Trabajamos con una paleta de colores a elección, combinando diferentes flores de papel para crear una pieza única.',['https://i.imgur.com/OVVzJIo.jpg','https://i.imgur.com/OVVzJIo.jpg','https://i.imgur.com/OVVzJIo.jpg'],'','Bouquet Novia')">
-      <div class="product-img"><div class="product-fill p3" style="background-image:url(https://i.imgur.com/OVVzJIo.jpg)"></div><div class="product-hover-overlay"><span class="ver-detalle-btn">Ver Detalle</span></div></div>
-      <div class="product-name">Bouquet Novia</div><div class="product-type">Arreglo Personalizado</div>
-      <div class="product-footer"><div class="product-price">Cotización</div><button class="product-action" onclick="event.stopPropagation();window.open('https://wa.me/573208654762','_blank','noopener')">Pedir</button></div>
-    </div>
-    <div class="product-card" tabindex="0" role="button" onclick="openProduct('Pieza de Lujo','Arreglo Gran Formato','Cotización','Nuestras piezas de lujo son instalaciones florales de gran impacto para espacios exclusivos, vitrinas o como regalo memorable. Cada pieza se diseña a medida.',['https://i.imgur.com/7kf6XSW.jpg','https://i.imgur.com/7kf6XSW.jpg','https://i.imgur.com/7kf6XSW.jpg'],'Exclusivo','Pieza de Lujo')">
-      <div class="product-img"><div class="product-fill p4" style="background-image:url(https://i.imgur.com/7kf6XSW.jpg)"></div><span class="product-tag">Exclusivo</span><div class="product-hover-overlay"><span class="ver-detalle-btn">Ver Detalle</span></div></div>
-      <div class="product-name">Pieza de Lujo</div><div class="product-type">Gran Formato</div>
-      <div class="product-footer"><div class="product-price">Cotización</div><button class="product-action" onclick="event.stopPropagation();window.open('https://wa.me/573208654762','_blank','noopener')">Pedir</button></div>
-    </div>
-    <div class="product-card" tabindex="0" role="button" onclick="openProduct('Amapola','Flor Individual','Desde $45k','La amapola de papel es una de nuestras creaciones más llamativas. Sus pétalos translúcidos y textura delicada la hacen perfecta para arreglos de primavera, decoración y styling fotográfico.',['https://i.imgur.com/CwfEel8.jpg','https://i.imgur.com/CwfEel8.jpg','https://i.imgur.com/CwfEel8.jpg'],'','Amapola')">
-      <div class="product-img"><div class="product-fill p1" style="background-image:url(https://i.imgur.com/CwfEel8.jpg)"></div><div class="product-hover-overlay"><span class="ver-detalle-btn">Ver Detalle</span></div></div>
-      <div class="product-name">Amapola</div><div class="product-type">Flor Individual</div>
-      <div class="product-footer"><div class="product-price">Desde $45k</div><button class="product-action" onclick="event.stopPropagation();window.open('https://wa.me/573208654762','_blank','noopener')">Pedir</button></div>
-    </div>
-    <div class="product-card" tabindex="0" role="button" onclick="openProduct('Cañas de India','Flor Individual','Desde $45k','Las cañas de india son flores exóticas trabajadas en papel crepé con manchas características hechas a mano. Su textura orgánica y colores vibrantes las hacen perfectas para arreglos tropicales.',['https://i.imgur.com/Oud2YX4.jpg','https://i.imgur.com/Oud2YX4.jpg','https://i.imgur.com/Oud2YX4.jpg'],'','Cañas de India')">
-      <div class="product-img"><div class="product-fill p2" style="background-image:url(https://i.imgur.com/Oud2YX4.jpg)"></div><div class="product-hover-overlay"><span class="ver-detalle-btn">Ver Detalle</span></div></div>
-      <div class="product-name">Cañas de India</div><div class="product-type">Flor Individual</div>
-      <div class="product-footer"><div class="product-price">Desde $45k</div><button class="product-action" onclick="event.stopPropagation();window.open('https://wa.me/573208654762','_blank','noopener')">Pedir</button></div>
-    </div>
-    <div class="product-card" tabindex="0" role="button" onclick="openProduct('Dahlia','Flor Individual','Desde $45k','La dahlia es una flor de estructura geométrica perfecta. Cada pétalo es cortado y curvado individualmente, creando ese efecto de capas que la hace tan característica y visualmente impactante.',['https://i.imgur.com/gJOZYaw.jpg','https://i.imgur.com/gJOZYaw.jpg','https://i.imgur.com/gJOZYaw.jpg'],'','Dahlia')">
-      <div class="product-img"><div class="product-fill p3" style="background-image:url(https://i.imgur.com/gJOZYaw.jpg)"></div><div class="product-hover-overlay"><span class="ver-detalle-btn">Ver Detalle</span></div></div>
-      <div class="product-name">Dahlia</div><div class="product-type">Flor Individual</div>
-      <div class="product-footer"><div class="product-price">Desde $45k</div><button class="product-action" onclick="event.stopPropagation();window.open('https://wa.me/573208654762','_blank','noopener')">Pedir</button></div>
-    </div>
-    <div class="product-card" tabindex="0" role="button" onclick="openProduct('Cerezos','Flor Individual','Desde $45k','Los cerezos son una de nuestras piezas más delicadas y poéticas. Ramitas llenas de pequeñas flores blancas y rosadas que evocan la primavera japonesa, ideales para decoración minimalista.',['https://i.imgur.com/QZftsP3.jpg','https://i.imgur.com/QZftsP3.jpg','https://i.imgur.com/QZftsP3.jpg'],'','Cerezos')">
-      <div class="product-img"><div class="product-fill p4" style="background-image:url(https://i.imgur.com/QZftsP3.jpg)"></div><div class="product-hover-overlay"><span class="ver-detalle-btn">Ver Detalle</span></div></div>
-      <div class="product-name">Cerezos</div><div class="product-type">Flor Individual</div>
-      <div class="product-footer"><div class="product-price">Desde $45k</div><button class="product-action" onclick="event.stopPropagation();window.open('https://wa.me/573208654762','_blank','noopener')">Pedir</button></div>
-    </div>
-  </div>
-</div>
-
-
-<!-- Wave: Shop → Clientes -->
-<div class="wave-sep" style="background:white; margin-top:-2px;">
-  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M0,35 C160,10 320,55 480,30 C640,5 800,55 960,30 C1120,5 1300,50 1440,35 L1440,60 L0,60 Z" fill="var(--light)"/>
   </svg>
 </div>
 <!-- ===== CLIENTES ===== -->
@@ -714,6 +571,9 @@
   <svg width="24" height="24" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
 </a>
 
-<script src="js/main.js" defer></script>
+<script src="productos.js" defer></script>
+<script src="comun.js" defer></script>
+<script src="producto.js" defer></script>
+<script src="main.js" defer></script>
 </body>
 </html>

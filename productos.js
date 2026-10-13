@@ -41,10 +41,13 @@
       `<div class="product-img"><div class="product-fill"><img src="${p.miniatura}" alt="${p.nombre}" loading="lazy" decoding="async" width="700" height="933"></div>` +
       `<div class="product-hover-overlay"><span class="ver-detalle-btn">Ver Detalle</span></div></div>` +
       `<div class="product-name">${p.nombre}</div><div class="product-type">Flor realista en papel</div></a>` +
-      `<div class="product-footer"><div class="product-price">${formatoPrecio(p.precio)}</div><button class="product-action" type="button" aria-label="Pedir ${p.nombre}">Pedir</button></div>`;
+      `<div class="product-footer"><div class="product-price">${formatoPrecio(p.precio)}</div><button class="product-action" type="button" aria-label="Agregar ${p.nombre} al carrito">Agregar</button></div>`;
     card.querySelector('.product-link').addEventListener('click', e => { e.preventDefault(); abrirProducto(p.id); });
-    card.querySelector('.product-action').addEventListener('click', () => {
-      window.open('https://wa.me/573208654762?text=' + encodeURIComponent(waProducto(p)), '_blank', 'noopener');
+    const btn = card.querySelector('.product-action');
+    btn.addEventListener('click', () => {
+      carritoAgregar(p.id);
+      btn.textContent = 'Agregada'; btn.classList.add('ok');
+      setTimeout(() => { btn.textContent = 'Agregar'; btn.classList.remove('ok'); }, 1400);
     });
     return card;
   }

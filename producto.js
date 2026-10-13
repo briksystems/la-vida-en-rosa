@@ -9,6 +9,7 @@
     '<div class="pp-barra">' +
       '<button type="button" class="pp-link" id="ppVolver"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg> ' + (vpEnCatalogo ? 'Volver al catálogo' : 'Volver al inicio') + '</button>' +
       (vpEnCatalogo ? '' : '<a class="pp-link" href="catalogo.html">Ver catálogo completo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>') +
+      '<button type="button" class="pp-link pp-carro js-cart-btn" aria-label="Abrir carrito"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.5 8h13l-1 12.5h-11z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></svg> Carrito <span class="cart-badge js-cart-count" hidden>0</span></button>' +
     '</div>' +
     '<div class="pp-grid" id="ppGrid">' +
       '<section class="pp-gallery" aria-label="Fotos del producto"><div id="ppFotos"></div></section>' +
@@ -18,7 +19,8 @@
         '<p class="pp-price-label">Precio unitario</p><p class="pp-price" id="ppPrecio"></p>' +
         '<p class="pp-desc" id="ppDesc"></p>' +
         '<h2 class="pp-sub">Especificaciones</h2><ul class="pm-specs" id="ppSpecs"></ul>' +
-        '<a id="ppPedir" href="#" target="_blank" rel="noopener noreferrer" class="pm-wa-btn"><svg width="28" height="28" viewBox="0 0 402 343" fill="white" aria-hidden="true" focusable="false"><use href="#lvr-mark"/></svg> Pedir en línea</a>' +
+        '<button type="button" id="ppAgregar" class="pm-wa-btn"><svg width="28" height="28" viewBox="0 0 402 343" fill="white" aria-hidden="true" focusable="false"><use href="#lvr-mark"/></svg> Agregar al carrito</button>' +
+        '<a id="ppPedir" href="#" target="_blank" rel="noopener noreferrer" class="pp-wa-link">Pedir solo esta flor por WhatsApp</a>' +
         '<p class="pp-note">Cada pieza se elabora a mano una vez realizas tu pedido.</p>' +
       '</section>' +
     '</div>' +
@@ -37,6 +39,7 @@
     vp.querySelector('#ppPrecio').textContent = formatoPrecio(p.precio);
     vp.querySelector('#ppDesc').textContent = DESCRIPCION;
     vp.querySelector('#ppSpecs').innerHTML = p.specs.map(s => `<li>${s}</li>`).join('');
+    vp.querySelector('#ppAgregar').onclick = () => carritoAgregar(p.id);
     vp.querySelector('#ppPedir').href = 'https://wa.me/573208654762?text=' + encodeURIComponent(waProducto(p));
     pintarGaleria();
     const mas = vp.querySelector('#ppMasGrid');

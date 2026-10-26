@@ -4,11 +4,15 @@
   const WHATSAPP_PEDIDOS = '573208654762';
   const CARRITO_CLAVE = 'lvr-carrito';
   const CARRITO_MAX = 99;
+  const CORREO_PEDIDOS = 'lavidaenrosaa@gmail.com';
+  const PEDIDO_CLAVE = 'lvr-pedido';      // copia del pedido para la página gracias.html
+  const PAGANDO_CLAVE = 'lvr-pagando';
 
   let carrito = [];                 // [{ id, n }]
   let carritoQuitada = null;        // última flor quitada, para deshacer
   let carritoAvisoT = null;
   let carritoOverflow = '';
+  let carritoPaso = 'carrito';      // 'carrito' | 'comprobante'
 
   try {
     const g = JSON.parse(localStorage.getItem(CARRITO_CLAVE) || '[]');
@@ -40,11 +44,14 @@
   function carritoPintar() {
     const cuerpo = cPanel.querySelector('#carritoCuerpo'), pie = cPanel.querySelector('#carritoPie');
     const n = carritoCuenta();
+    if (carritoPaso === 'comprobante' && n) return carritoPintarComprobante(cuerpo, pie, n);
+    carritoPaso = 'carrito';
+    cPanel.querySelector('#carritoTitulo').textContent = 'Tu carrito';
     document.querySelectorAll('.js-cart-count').forEach(b => { b.textContent = n; b.hidden = n === 0; });
-    document.querySelectorAll('.js-cart-btn').forEach(b => b.setAttribute('aria-label', n ? `Abrir carrito, ${n} ${n === 1 ? 'flor' : 'flores'}` : 'Abrir carrito'));
+    document.querySelectorAll('.js-cart-btn').forEach(b => b.setAttribute('aria-label', n ? `Abrir carrito, ${n} ${n === 1 ? 'artículo' : 'artículos'}` : 'Abrir carrito'));
     if (!carrito.length) {
-      cuerpo.innerHTML = '<div class="car-vacio"><p class="car-vacio-t">Tu carrito está vacío</p><p>Elige tus flores favoritas y aparecerán aquí.</p>' +
-        `<a class="btn-primary" href="${vpEnCatalogoCar() ? '#' : 'catalogo.html'}" id="carritoVer">Ver las flores</a></div>`;
+      cuerpo.innerHTML = '<div class="car-vacio"><p class="car-vacio-t">Tu carrito está vacío</p><p>Elige tus flores o arreglos favoritos y aparecerán aquí.</p>' +
+        `<a class="btn-primary" href="${vpEnCatalogoCar() ? '#' : 'catalogo.html'}" id="carritoVer">Ver el catálogo</a></div>`;
       pie.innerHTML = '';
       pie.hidden = true;
       const ver = cuerpo.querySelector('#carritoVer');
@@ -56,13 +63,13 @@
       const p = carritoProd(x.id);
       return `<li class="car-item" data-id="${p.id}">` +
         `<img class="car-img" src="${p.miniatura}" alt="" width="72" height="96" loading="lazy" decoding="async">` +
-        `<div class="car-info"><p class="car-nombre">${carritoEsc(p.nombre)}</p><p class="car-unit">${formatoPrecio(p.precio)} c/u</p>` +
-        `<div class="car-cant" role="group" aria-label="Cantidad de ${carritoEsc(p.nombre)}">` +
-          `<button type="button" class="car-mas-menos" data-acc="menos" aria-label="Quitar una ${carritoEsc(p.nombre)}"${x.n <= 1 ? ' disabled' : ''}>&minus;</button>` +
+        `<div class="car-info"><p class="car-nombre">${carritoEsc(nombreItem(p))}</p><p class="car-unit">${formatoPrecio(p.precio)} c/u</p>` +
+        `<div class="car-cant" role="group" aria-label="Cantidad de ${carritoEsc(nombreItem(p))}">` +
+          `<button type="button" class="car-mas-menos" data-acc="menos" aria-label="Quitar una ${carritoEsc(nombreItem(p))}"${x.n <= 1 ? ' disabled' : ''}>&minus;</button>` +
           `<span class="car-num" aria-live="polite">${x.n}</span>` +
-          `<button type="button" class="car-mas-menos" data-acc="mas" aria-label="Agregar una ${carritoEsc(p.nombre)}"${x.n >= CARRITO_MAX ? ' disabled' : ''}>+</button></div></div>` +
+          `<button type="button" class="car-mas-menos" data-acc="mas" aria-label="Agregar una ${carritoEsc(nombreItem(p))}"${x.n >= CARRITO_MAX ? ' disabled' : ''}>+</button></div></div>` +
         `<div class="car-der"><p class="car-sub">${formatoPrecio(p.precio * x.n)}</p>` +
-        `<button type="button" class="car-quitar" data-acc="quitar" aria-label="Eliminar ${carritoEsc(p.nombre)} del carrito">Eliminar</button></div></li>`;
+        `<button type="button" class="car-quitar" data-acc="quitar" aria-label="Eliminar ${carritoEsc(nombreItem(p))} del carrito">Eliminar</button></div></li>`;
     }).join('') + '</ul>';
     const total = formatoPrecio(carritoTotal());
     pie.innerHTML =
@@ -76,13 +83,50 @@
   function vpEnCatalogoCar() { return !!document.getElementById('catalogGrid'); }
 
   function carritoResumen() {
-    const lineas = carrito.map(x => { const p = carritoProd(x.id); return `${x.n} x ${p.nombre} (${formatoPrecio(p.precio)} c/u) = ${formatoPrecio(p.precio * x.n)}`; });
+    const lineas = carrito.map(x => { const p = carritoProd(x.id); return `${x.n} x ${nombreItem(p)} (${formatoPrecio(p.precio)} c/u) = ${formatoPrecio(p.precio * x.n)}`; });
     return 'Hola, este es mi pedido:\n' + lineas.join('\n') + '\nTotal: ' + formatoPrecio(carritoTotal());
   }
   function carritoPagar() {
+    try {
+      localStorage.setItem(PEDIDO_CLAVE, JSON.stringify({ texto: carritoResumen(), total: carritoTotal(), t: Date.now() }));
+      sessionStorage.setItem(PAGANDO_CLAVE, String(Date.now()));
+    } catch (e) {}
     try { if (navigator.clipboard) navigator.clipboard.writeText(carritoResumen()).catch(() => {}); } catch (e) {}
     window.open(WOMPI_URL, '_blank', 'noopener');
+    carritoPaso = 'comprobante'; carritoPintar();
   }
+  // Paso 2: cuando la persona vuelve del pago, se le pide enviar el comprobante por WhatsApp o por correo
+  function carritoMensajeComprobante() {
+    return 'Hola, ya realicé el pago de mi pedido en La Vida en Rosa. Te envío el comprobante.\n\n' + carritoResumen();
+  }
+  function carritoPintarComprobante(cuerpo, pie, n) {
+    cPanel.querySelector('#carritoTitulo').textContent = 'Envía tu comprobante';
+    cuerpo.innerHTML = '<div class="car-paso"><p class="car-paso-t">Cuando termines el pago en Wompi, vuelve a esta página.</p>' +
+      '<p>Para confirmar tu pedido, envíanos el comprobante de pago. Elige cómo prefieres hacerlo:</p>' +
+      `<p class="car-paso-total">Total del pedido <strong>${formatoPrecio(carritoTotal())}</strong></p></div>`;
+    const msg = carritoMensajeComprobante();
+    pie.hidden = false;
+    pie.innerHTML =
+      '<a class="btn-primary car-pagar" target="_blank" rel="noopener noreferrer" href="https://wa.me/' + WHATSAPP_PEDIDOS + '?text=' + encodeURIComponent(msg) + '">Enviar comprobante por WhatsApp</a>' +
+      '<a class="car-wa" href="mailto:' + CORREO_PEDIDOS + '?subject=' + encodeURIComponent('Comprobante de pago - pedido La Vida en Rosa') + '&body=' + encodeURIComponent(msg + '\n\n(Adjunta aquí el comprobante de pago)') + '">Enviar comprobante por correo</a>' +
+      '<button type="button" class="car-wa car-boton" id="carritoYaEnvie">Ya envié mi comprobante</button>' +
+      '<button type="button" class="car-wa car-boton" id="carritoVolver">Volver al carrito</button>' +
+      '<button type="button" class="car-wa car-boton" id="carritoOtraVez">Abrir de nuevo la página de pago</button>';
+    pie.querySelector('#carritoVolver').addEventListener('click', () => { carritoPaso = 'carrito'; carritoPintar(); });
+    pie.querySelector('#carritoOtraVez').addEventListener('click', () => window.open(WOMPI_URL, '_blank', 'noopener'));
+    pie.querySelector('#carritoYaEnvie').addEventListener('click', () => {
+      carrito = []; carritoGuardar(); carritoPaso = 'carrito';
+      try { sessionStorage.removeItem(PAGANDO_CLAVE); localStorage.removeItem(PEDIDO_CLAVE); } catch (e) {}
+      carritoPintar(); carritoAviso('Gracias por tu compra. Te confirmaremos tu pedido pronto.');
+    });
+  }
+  // al volver a la pestaña después de pulsar Pagar, se abre el carrito en el paso del comprobante
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState !== 'visible' || !carrito.length) return;
+    let t = 0; try { t = Number(sessionStorage.getItem(PAGANDO_CLAVE)) || 0; } catch (e) {}
+    if (!t || Date.now() - t > 2 * 60 * 60 * 1000 || carritoPaso !== 'comprobante') return;
+    if (!carritoAbiertoFlag) carritoAbrir();
+  });
 
   // ----- acciones -----
   function carritoAviso(texto, accion) {
@@ -98,7 +142,7 @@
     if (x) x.n = Math.min(CARRITO_MAX, x.n + (n || 1)); else carrito.push({ id, n: Math.min(CARRITO_MAX, n || 1) });
     carritoGuardar(); carritoPintar();
     document.querySelectorAll('.js-cart-btn').forEach(b => { b.classList.remove('bump'); void b.offsetWidth; b.classList.add('bump'); });
-    carritoAviso(`${p.nombre} agregada al carrito`, { etiqueta: 'Ver carrito', fn: carritoAbrir });
+    carritoAviso(`${nombreItem(p)} agregado al carrito`, { etiqueta: 'Ver carrito', fn: carritoAbrir });
   }
   function carritoCambiar(id, d) {
     const x = carrito.find(i => i.id === id); if (!x) return;
@@ -114,7 +158,7 @@
     carritoGuardar(); carritoPintar();
     const sig = cPanel.querySelector('.car-item .car-quitar') || cPanel.querySelector('#carritoVer') || cPanel.querySelector('#carritoCerrar');
     if (sig) sig.focus();
-    carritoAviso(`${carritoProd(id).nombre} eliminada`, { etiqueta: 'Deshacer', fn: () => {
+    carritoAviso(`${nombreItem(carritoProd(id))} eliminado`, { etiqueta: 'Deshacer', fn: () => {
       if (!carritoQuitada) return;
       carrito.splice(Math.min(carritoQuitada.pos, carrito.length), 0, carritoQuitada.item); carritoQuitada = null;
       carritoGuardar(); carritoPintar();

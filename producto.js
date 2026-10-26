@@ -14,11 +14,11 @@
     '<div class="pp-grid" id="ppGrid">' +
       '<section class="pp-gallery" aria-label="Fotos del producto"><div id="ppFotos"></div></section>' +
       '<section class="pp-info">' +
-        '<p class="section-label">Flor realista en papel</p>' +
+        '<p class="section-label" id="ppEtiqueta">Flor realista en papel</p>' +
         '<h1 class="pp-title" id="ppNombre"></h1>' +
-        '<p class="pp-price-label">Precio unitario</p><p class="pp-price" id="ppPrecio"></p>' +
+        '<p class="pp-price-label" id="ppPrecioEtiqueta">Precio unitario</p><p class="pp-price" id="ppPrecio"></p>' +
         '<p class="pp-desc" id="ppDesc"></p>' +
-        '<h2 class="pp-sub">Especificaciones</h2><ul class="pm-specs" id="ppSpecs"></ul>' +
+        '<h2 class="pp-sub" id="ppSubtitulo">Especificaciones</h2><ul class="pm-specs" id="ppSpecs"></ul>' +
         '<button type="button" id="ppAgregar" class="pm-wa-btn"><svg width="28" height="28" viewBox="0 0 402 343" fill="white" aria-hidden="true" focusable="false"><use href="#lvr-mark"/></svg> Agregar al carrito</button>' +
         '<a id="ppPedir" href="#" target="_blank" rel="noopener noreferrer" class="pp-wa-link">Pedir solo esta flor por WhatsApp</a>' +
         '<p class="pp-note">Cada pieza se elabora a mano una vez realizas tu pedido.</p>' +
@@ -35,19 +35,28 @@
     const p = PRODUCTOS.find(x => x.id === id);
     if (!p) return;
     vpProd = p;
+    const arreglo = p.tipo === 'arreglo';
     vp.querySelector('#ppNombre').textContent = p.nombre;
+    vp.querySelector('#ppEtiqueta').textContent = arreglo ? 'Arreglo de flores en papel' : 'Flor realista en papel';
+    vp.querySelector('#ppPrecioEtiqueta').textContent = arreglo ? 'Precio del arreglo' : 'Precio unitario';
     vp.querySelector('#ppPrecio').textContent = formatoPrecio(p.precio);
-    vp.querySelector('#ppDesc').textContent = DESCRIPCION;
-    vp.querySelector('#ppSpecs').innerHTML = p.specs.map(s => `<li>${s}</li>`).join('');
+    vp.querySelector('#ppDesc').textContent = arreglo ? DESCRIPCION_ARREGLO : DESCRIPCION;
+    vp.querySelector('#ppSubtitulo').textContent = arreglo ? 'Qué incluye' : 'Especificaciones';
+    vp.querySelector('#ppSpecs').innerHTML = (arreglo ? p.composicion : p.specs).map(s => `<li>${s}</li>`).join('');
     vp.querySelector('#ppAgregar').onclick = () => carritoAgregar(p.id);
-    vp.querySelector('#ppPedir').href = 'https://wa.me/573208654762?text=' + encodeURIComponent(waProducto(p));
+    const pedir = vp.querySelector('#ppPedir');
+    pedir.textContent = arreglo ? 'Personalizar este arreglo por WhatsApp' : 'Pedir solo esta flor por WhatsApp';
+    pedir.href = 'https://wa.me/573208654762?text=' + encodeURIComponent(waProducto(p));
     pintarGaleria();
+    // "Otras flores" o "Otros arreglos": se recomiendan piezas del mismo grupo
+    vp.querySelector('#ppMasTitulo').innerHTML = arreglo ? 'Otros <em>arreglos</em>' : 'Otras <em>flores</em>';
     const mas = vp.querySelector('#ppMasGrid');
     mas.innerHTML = '';
-    const i = PRODUCTOS.indexOf(p);
-    for (let k = 1; k <= 4; k++) mas.appendChild(tarjetaProducto(PRODUCTOS[(i + k) % PRODUCTOS.length]));
+    const grupo = PRODUCTOS.filter(x => x.tipo === p.tipo);
+    const i = grupo.indexOf(p);
+    for (let k = 1; k <= 4; k++) mas.appendChild(tarjetaProducto(grupo[(i + k) % grupo.length]));
     vp.scrollTop = 0;
-    document.title = p.nombre + ' | La Vida en Rosa';
+    document.title = nombreItem(p) + ' | La Vida en Rosa';
     if (!vpAbierto) {
       lastFocus = document.activeElement;
       vp.hidden = false; vpAbierto = true;
@@ -84,9 +93,9 @@
   function marco(src, n) {
     const b = document.createElement('button');
     b.type = 'button'; b.className = 'pp-tile';
-    b.setAttribute('aria-label', `${vpProd.nombre}: ver foto ${n + 1} de ${vpProd.fotos.length} en grande`);
-    b.innerHTML = `<span class="pp-frame"><img src="${src}" alt="${vpProd.nombre}, foto ${n + 1}" width="3" height="4" decoding="async"></span>`;
-    const fotos = vpProd.fotos, nombre = vpProd.nombre;
+    b.setAttribute('aria-label', `${nombreItem(vpProd)}: ver foto ${n + 1} de ${vpProd.fotos.length} en grande`);
+    b.innerHTML = `<span class="pp-frame"><img src="${src}" alt="${nombreItem(vpProd)}, foto ${n + 1}" width="3" height="4" decoding="async"></span>`;
+    const fotos = vpProd.fotos, nombre = nombreItem(vpProd);
     b.addEventListener('click', () => abrirLightbox(fotos, n, nombre));
     return b;
   }

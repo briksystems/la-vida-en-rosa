@@ -13,9 +13,9 @@
     },
     novias: {
       nombre: 'Novias', etiqueta: 'Portafolio', tipo: 'Colección Novias',
-      texto: 'Bouquets, tocados y detalles para el día más importante. Flores realistas en papel que se quedan para siempre como recuerdo.',
-      portada: 'assets/img/proyectos/portada-novias.jpg', enfoque: 'center 55%',
-      fotos: pyFotos('novias', [[1515,1513],[1489,1509],[1447,1509],[1486,1476],[1428,1466],[1447,1470],[1372,1488],[1515,1511],[1600,1066],[1066,1600],[1066,1600],[1066,1600],[1068,1600]]), videos: [1, 2]
+      texto: 'Bouquets, tocados, boutonnieres y accesorios hechos 100% a mano en papel. Piezas únicas que tienen la intención de celebrar la unión y el amor, y quedarse para siempre como recuerdo.',
+      portada: 'assets/img/proyectos/portada-novias.jpg', banner: 'assets/img/proyectos/novias/banner-novias.jpg', enfoque: 'center 22%',
+      fotos: pyFotos('novias', [[1515,1513],[1489,1509],[1447,1509],[1486,1476],[1428,1466],[1447,1470],[1372,1488],[1515,1511],[1798,1800],[1066,1600],[1066,1600],[1066,1600],[1068,1600]]), videos: []
     },
     home: {
       nombre: 'Home', etiqueta: 'Portafolio', tipo: 'Decoración para espacios',
@@ -154,7 +154,7 @@
     if (!p) return;
     pyActual = p;
     const img = pyVista.querySelector('#pyPortada');
-    img.src = p.portada; img.alt = `Portada del proyecto ${p.nombre}`; img.style.objectPosition = p.enfoque || 'center';
+    img.src = p.banner || p.portada; img.alt = `Portada del proyecto ${p.nombre}`; img.style.objectPosition = p.enfoque || 'center';
     pyVista.querySelector('#pyEtiqueta').textContent = p.etiqueta;
     pyVista.querySelector('#pyTitulo').textContent = p.nombre;
     pyVista.querySelector('#pyTipo').textContent = p.tipo;

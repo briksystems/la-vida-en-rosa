@@ -9,7 +9,7 @@
     --dark:      #2a2a2a;
     --mid:       #6b6b6b;
     --rosa-ink:  #9c6f72;
-    --z-nav: 100; --z-float: 200; --z-catalog: 550; --z-modal: 600; --z-splash: 900; --z-cursor: 950;
+    --z-nav: 100; --z-float: 650; --z-catalog: 550; --z-modal: 600; --z-splash: 900; --z-cursor: 950;
     --light:     #f9f4f3;
     --white:     #ffffff;
     --serif: 'Cormorant Garamond', Georgia, serif;
@@ -1942,7 +1942,7 @@
   .py-tipo { font-family: var(--sans); font-weight: 300; font-size: 16px; letter-spacing: 0.04em; margin: 0; opacity: 0.92; }
   .py-intro { max-width: 1320px; margin: 0 auto; padding: 72px 48px 56px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 48px; align-items: start; }
   .py-intro-label { font-family: var(--sans); font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--viola); margin: 6px 0 0; }
-  .py-intro-texto { font-family: var(--display); font-size: clamp(22px, 2.4vw, 32px); line-height: 1.45; color: var(--dark); margin: 0; max-width: 34em; text-wrap: pretty; }
+  .py-intro-texto { font-family: var(--sans); font-weight: 300; font-size: clamp(18px, 1.7vw, 22px); line-height: 1.75; letter-spacing: 0.01em; color: var(--dark); margin: 0; max-width: 34em; text-wrap: pretty; }
   .py-galeria { max-width: 1680px; margin: 0 auto; padding: 0 24px; column-count: 3; column-gap: 6px; }
   .py-item { display: block; width: 100%; margin: 0 0 6px; padding: 0; border: 0; background: #f4f1ef; position: relative; break-inside: avoid; overflow: hidden; }
   .py-foto { cursor: zoom-in; }
@@ -2140,3 +2140,46 @@
     .cat-tabs { gap: 24px; }
     .cat-tab { font-size: 11px; letter-spacing: 0.16em; }
   }
+
+
+/* ===== AJUSTES DE LA CLIENTA (segunda tanda) ===== */
+.categorias-una { grid-template-columns: minmax(0, 1fr); max-width: 520px; margin: 0 auto; }
+.categorias-una .categoria-img { aspect-ratio: 4 / 5; }
+.seccion-proyecto-uno { background: var(--light); padding: 100px 80px; }
+#impacto { background: var(--white); }
+@media (max-width: 768px) { .seccion-proyecto-uno { padding: 60px 24px; } }
+
+/* Retratos: cinco fotos en fila, sin rayas ni ondas */
+.retratos { display: flex; gap: 6px; background: var(--white); }
+.retratos img { flex: 1 1 0; min-width: 0; height: clamp(300px, 36vw, 560px); object-fit: cover; display: block; }
+@media (max-width: 768px) {
+  .retratos { overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .retratos::-webkit-scrollbar { display: none; }
+  .retratos img { flex: 0 0 62%; height: 340px; scroll-snap-align: start; }
+}
+
+/* Botón de la comunidad */
+.btn-comunidad {
+  margin-top: 32px; padding: 18px 36px; background: var(--rosa); color: var(--dark); border: 1px solid var(--rosa);
+  font-family: var(--sans); font-weight: 400; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer;
+  transition: background 0.25s, color 0.25s, transform 0.2s cubic-bezier(0.23,1,0.32,1);
+}
+.btn-comunidad:hover { background: transparent; color: var(--white); }
+.btn-comunidad:active { transform: scale(0.97); }
+
+/* Comunidad Mujer Gigante */
+#vistaComunidad { position: fixed; inset: 0; z-index: var(--z-modal); background: var(--white); overflow-y: auto; overscroll-behavior: contain; }
+#vistaComunidad[hidden] { display: none; }
+.cm-grid { max-width: 1240px; margin: 0 auto; padding: 56px 48px 120px; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: 72px; align-items: start; }
+.cm-etiqueta { font-family: var(--sans); font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--viola); margin: 0 0 16px; }
+.cm-texto h1 { font-family: var(--display); font-weight: 400; font-size: clamp(44px, 6vw, 80px); line-height: 1.04; margin: 0 0 40px; color: var(--dark); text-wrap: balance; }
+.cm-texto h1 em { color: var(--viola); }
+.cm-texto p { font-family: var(--sans); font-weight: 300; font-size: 18px; line-height: 1.8; color: var(--dark); margin: 0 0 20px; max-width: 36em; text-wrap: pretty; }
+.cm-texto .cm-firma { font-family: var(--display); font-style: italic; font-size: 22px; margin: 32px 0 36px; }
+.cm-fotos { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; position: sticky; top: 24px; }
+.cm-fotos img { width: 100%; display: block; object-fit: cover; aspect-ratio: 3 / 4; }
+.cm-fotos .cm-matias { grid-column: 1 / -1; aspect-ratio: 1 / 1; object-position: center 30%; }
+@media (max-width: 900px) {
+  .cm-grid { grid-template-columns: minmax(0, 1fr); gap: 40px; padding: 32px 24px 96px; }
+  .cm-fotos { position: static; }
+}

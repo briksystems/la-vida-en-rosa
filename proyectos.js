@@ -7,27 +7,27 @@
   const PROYECTOS = {
     marcas: {
       nombre: 'Marcas', etiqueta: 'Portafolio', tipo: 'Proyectos para marcas y eventos',
-      texto: 'Escenografía, vitrinas y piezas para marcas y pasarelas. Hemos trabajado con Bronzini, Colombia Moda y revistas como Alo Novias.',
-      portada: 'assets/img/proyectos/portada-marcas.jpg', enfoque: 'center 45%',
-      fotos: pyFotos('marcas', [[1800,1300],[1800,1000],[1499,1501],[808,810],[1435,1466],[1451,1520],[1516,1509],[1443,1522],[1800,1204]]), videos: [3], marcas: true
+      texto: 'Nos encanta materializar grandes ideas con nuestras manos. A lo largo de este camino hemos tenido la oportunidad de trabajar para marcas de lujo, agencias, diseñadores y proyectos que han sido un tesoro para nuestro corazón. Gracias a cada uno por confiar en nuestro trabajo para darle forma a su visión y dejarnos llevar un poco de nuestra esencia Rosa.',
+      portada: 'assets/img/proyectos/portada-marcas.jpg', banner: 'assets/img/proyectos/marcas/marcas-2.jpg', enfoque: 'center 40%',
+      fotos: pyFotos('marcas', [[1800,1300],[1800,1000],[1499,1501],[808,810],[1435,1466],[1451,1520],[1516,1509],[1443,1522],[1800,1204]]), videos: [], marcas: true
     },
     novias: {
       nombre: 'Novias', etiqueta: 'Portafolio', tipo: 'Colección Novias',
       texto: 'Bouquets, tocados, boutonnieres y accesorios hechos 100% a mano en papel. Piezas únicas que tienen la intención de celebrar la unión y el amor, y quedarse para siempre como recuerdo.',
       portada: 'assets/img/proyectos/portada-novias.jpg', banner: 'assets/img/proyectos/novias/banner-novias.jpg', enfoque: 'center 22%',
-      fotos: pyFotos('novias', [[1515,1513],[1489,1509],[1447,1509],[1486,1476],[1428,1466],[1447,1470],[1372,1488],[1515,1511],[1798,1800],[1066,1600],[1066,1600],[1066,1600],[1068,1600]]), videos: []
+      fotos: pyFotos('novias', [[1515,1513],[1489,1509],[1447,1509],[1486,1476],[1428,1466],[1447,1470],[1372,1488],[1515,1511],[1798,1800],[1066,1600],[1066,1600],[1066,1600],[1068,1600],[1474,1500],[1386,1500],[1166,1500],[1491,1500],[1500,1190]]), videos: []
     },
     home: {
       nombre: 'Home', etiqueta: 'Portafolio', tipo: 'Decoración para espacios',
       texto: 'Flores de papel pensadas para el hogar: piezas que convierten una pared, una mesa o una esquina en un jardín que no se marchita.',
       portada: 'assets/img/proyectos/portada-home.jpg', enfoque: 'center 40%',
-      fotos: pyFotos('home', [[1516,1513],[1563,1559],[1545,1571],[1551,1567],[1567,1569],[1557,1571],[1505,1572],[1530,1565],[1491,1499],[1522,1518],[1238,1396],[1126,1560],[1499,1518],[1503,1513]]), videos: [6]
+      fotos: pyFotos('home', [[1516,1513],[1563,1559],[1545,1571],[1551,1567],[1567,1569],[1557,1571],[1505,1572],[1530,1565],[1491,1499],[1522,1518],[1238,1396],[1126,1560],[1499,1518],[1503,1513]]), videos: []
     },
     rosa: {
       nombre: '+Rosa', etiqueta: 'Impacto social', tipo: 'Iniciativa +Rosa',
-      texto: 'Somos el equipo de La Vida en Rosa. Hace seis años comenzamos este proyecto con una visión grande: impactar la vida de muchas mujeres. Hoy esa visión tiene nombre propio, +Rosa, nuestra iniciativa con la que hemos generado empleo para mujeres cabeza de familia y para hombres privados de la libertad. Detrás de cada flor hay unas manos que aprendieron un oficio y una oportunidad que cambia una historia. Esas son las razones que nos motivan a seguir trabajando con amor y responsabilidad.',
+      texto: 'Somos el equipo de La Vida en Rosa. Hace nueve años comenzamos este proyecto con una visión grande: impactar la vida de muchas mujeres. Hoy esa visión tiene nombre propio, +Rosa. Detrás de cada flor hay unas manos que aprendieron un oficio y una oportunidad que cambia una historia. Estas son las razones que nos motivan a seguir trabajando con amor y responsabilidad.',
       portada: 'assets/img/proyectos/portada-rosa.jpg', enfoque: 'center 40%',
-      fotos: pyFotos('rosa', [[1800,1495],[1800,1377],[1516,1518],[1432,1488],[836,1234],[1350,1800],[1350,1800],[1800,1200],[1800,1200],[1800,1200]]), videos: [4, 'flores-gigantes']
+      fotos: pyFotos('rosa', [[1800,1495],[1800,1377],[1516,1518],[1432,1488],[836,1234],[1350,1800],[1350,1800],[1800,1200],[1800,1200],[1800,1200]]), videos: ['flores-gigantes']
     }
   };
   const PROYECTOS_ORDEN = ['marcas', 'novias', 'home', 'rosa'];
@@ -50,9 +50,7 @@
     '<section class="py-intro"><p class="py-intro-label">Sobre este proyecto</p><p class="py-intro-texto" id="pyTexto"></p></section>' +
     '<section class="py-marcas" id="pyMarcas" aria-label="Marcas con las que hemos trabajado" hidden><p class="py-marcas-label">Marcas que han confiado en nosotras</p><div class="py-marcas-wrap"><div class="clientes-marquee" id="pyMarcasPista"></div></div></section>' +
     '<div class="py-galeria" id="pyGaleria"></div>' +
-    '<p class="py-vacio" id="pyVacio" hidden>Muy pronto más fotos de este proyecto.</p>' +
-    '<section class="py-cierre"><p>¿Quieres algo así para tu marca, tu evento o tu hogar?</p>' +
-      '<a class="btn-primary" href="https://wa.me/573208654762?text=Hola!%20Vi%20sus%20proyectos%20y%20quiero%20cotizar" target="_blank" rel="noopener noreferrer">Escríbenos por WhatsApp</a></section>';
+    '<p class="py-vacio" id="pyVacio" hidden>Muy pronto más fotos de este proyecto.</p>';
   document.body.appendChild(pyVista);
 
   let pyActual = null, pyAbierto = false;
@@ -202,3 +200,53 @@
     if (e.key === 'Escape') cerrarProyecto(); else trapFocus(e, pyVista);
   });
   { const m = location.hash.match(/^#proyecto-(.+)$/); if (m && PROYECTOS[m[1]]) abrirProyecto(m[1], true); }
+
+// ===== COMUNIDAD MUJER GIGANTE: página propia con el texto de la fundadora =====
+(function () {
+  const cm = document.createElement('div');
+  cm.id = 'vistaComunidad'; cm.hidden = true;
+  cm.setAttribute('role', 'dialog'); cm.setAttribute('aria-modal', 'true'); cm.setAttribute('aria-labelledby', 'cmTitulo');
+  cm.innerHTML =
+    '<div class="pp-barra"><button type="button" class="pp-link" id="cmVolver"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg> Volver al inicio</button></div>' +
+    '<div class="cm-grid">' +
+      '<div class="cm-texto">' +
+        '<p class="cm-etiqueta">La Vida en Rosa</p>' +
+        '<h1 id="cmTitulo">Comunidad<br><em>Mujer Gigante</em></h1>' +
+        '<p>Cuando mi hijo Matías partió al Cielo, mi corazón y mi mundo se rompieron en mil pedazos. En medio de ese silencio, de ese dolor que no tiene nombre, Dios me susurró una verdad que lo cambió todo: no estaba sola y no era pequeña, era gigante, porque Él es gigante y vive en mí.</p>' +
+        '<p>Matías no se fue sin dejar un regalo. Nos dejó un legado: el recordatorio de que dentro de cada mujer que llora, que emprende, que cría, que cae y se vuelve a levantar, habita una fuerza que no viene de ella, sino de su Creador.</p>' +
+        '<p>Mujer Gigante nació para recordarles a las mujeres que ellas tampoco mueren por dentro, que pueden volver a florecer ante el problema más gigante. Eso me repetía Matías cada vez que quise rendirme.</p>' +
+        '<p>Mujer Gigante es un espacio seguro para sanar, para hablar sin juicio, para recordar juntas quiénes somos en Dios. Un lugar donde tu dolor tiene propósito y tu historia tiene poder.</p>' +
+        '<p>Esta comunidad es para ti y para mí: para que nunca más una mujer se sienta pequeña ante un problema gigante.</p>' +
+        '<p class="cm-firma">Con amor, LVR.</p>' +
+        '<a class="btn-primary" href="https://wa.me/573208654762?text=Hola!%20Quiero%20unirme%20a%20la%20comunidad%20Mujer%20Gigante" target="_blank" rel="noopener noreferrer">Quiero unirme a la comunidad</a>' +
+      '</div>' +
+      '<div class="cm-fotos">' +
+        '<img class="cm-matias" src="assets/img/comunidad/matias.jpg" alt="Matías" loading="lazy" decoding="async">' +
+        '<img src="assets/img/comunidad/mujer-gigante-1.jpg" alt="Mujer entre flores gigantes de papel" loading="lazy" decoding="async">' +
+        '<img src="assets/img/comunidad/mujer-gigante-2.jpg" alt="Mujer entre flores gigantes de papel" loading="lazy" decoding="async">' +
+      '</div>' +
+    '</div>';
+  document.body.appendChild(cm);
+  let abierto = false, foco = null;
+  function abrir(desdeHistorial) {
+    if (abierto) return;
+    foco = document.activeElement; cm.hidden = false; abierto = true; cm.scrollTop = 0;
+    document.body.style.overflow = 'hidden';
+    cm.querySelector('#cmVolver').focus({ preventScroll: true });
+    if (!desdeHistorial) history.pushState({ comunidad: 1 }, '', '#comunidad');
+  }
+  function ocultar() {
+    if (!abierto) return;
+    cm.hidden = true; abierto = false; document.body.style.overflow = '';
+    if (foco && foco.focus) foco.focus({ preventScroll: true });
+  }
+  function cerrar() { if (history.state && history.state.comunidad) history.back(); else ocultar(); }
+  window.abrirComunidad = () => abrir(false);
+  cm.querySelector('#cmVolver').addEventListener('click', cerrar);
+  window.addEventListener('popstate', () => { if (location.hash === '#comunidad') abrir(true); else ocultar(); });
+  document.addEventListener('keydown', e => {
+    if (!abierto) return;
+    if (e.key === 'Escape') cerrar(); else if (typeof trapFocus === 'function') trapFocus(e, cm);
+  });
+  if (location.hash === '#comunidad') abrir(true);
+})();

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gracias por tu compra | La Vida en Rosa</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#ffdedb">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Raleway:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=8">
+<style>
+  body { background: var(--light); }
+  .gr-barra { display: flex; justify-content: space-between; align-items: center; padding: 18px 48px; background: var(--white); border-bottom: 1px solid var(--rosa); }
+  .gr-barra a { font-family: var(--sans); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dark); text-decoration: none; }
+  .gr-barra a:hover { color: var(--viola); }
+  .gr-logo { display: flex; align-items: center; gap: 12px; }
+  .gr { max-width: 640px; margin: 0 auto; padding: 72px 24px 96px; }
+  .gr-estado { display: inline-block; font-family: var(--sans); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--viola); margin: 0 0 16px; }
+  .gr h1 { font-family: var(--display); font-weight: 400; font-size: clamp(36px, 7vw, 56px); line-height: 1.1; margin: 0 0 20px; color: var(--dark); text-wrap: balance; }
+  .gr p { font-family: var(--sans); font-weight: 300; font-size: 16px; line-height: 1.8; color: var(--mid); margin: 0 0 20px; }
+  .gr-pedido { margin: 32px 0; padding: 22px 0; border-top: 1px solid var(--rosa-deep); border-bottom: 1px solid var(--rosa-deep); }
+  .gr-pedido h2 { font-family: var(--sans); font-weight: 400; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dark); margin: 0 0 12px; }
+  .gr-pedido pre { white-space: pre-wrap; font-family: var(--sans); font-size: 14px; line-height: 1.7; color: var(--dark); margin: 0; }
+  .gr-acciones { display: flex; flex-direction: column; gap: 12px; }
+  .gr-acciones .btn-primary { justify-content: center; text-align: center; text-decoration: none; display: flex; align-items: center; min-height: 52px; }
+  .gr-acciones .btn-outline { justify-content: center; text-align: center; text-decoration: none; display: flex; align-items: center; min-height: 52px; background: none; cursor: pointer; }
+  .gr-aviso { font-size: 13px !important; }
+  .gr-ok { color: var(--viola); }
+  @media (max-width: 600px) { .gr-barra { padding: 14px 24px; } .gr { padding-top: 48px; } }
+</style>
+</head>
+<body>
+<header class="gr-barra">
+  <a href="index.html" class="gr-logo" aria-label="La Vida en Rosa, ir al inicio">
+    <svg width="30" height="30" viewBox="0 0 402 343" fill="#2a2a2a" aria-hidden="true" focusable="false"><use href="#lvr-mark"/></svg>
+    La Vida en Rosa
+  </a>
+  <a href="index.html#shop">Seguir comprando</a>
+</header>
+<main class="gr" id="contenido">
+  <p class="gr-estado" id="grEstado">Pago recibido en Wompi</p>
+  <h1 id="grTitulo">Gracias por tu compra</h1>
+  <p id="grTexto">Para confirmar tu pedido, envíanos el comprobante de pago por WhatsApp o por correo. Con eso empezamos a elaborar tus flores.</p>
+  <p class="gr-aviso" id="grRef" hidden></p>
+
+  <section class="gr-pedido" id="grPedido" aria-labelledby="grPedidoT" hidden>
+    <h2 id="grPedidoT">Tu pedido</h2>
+    <pre id="grDetalle"></pre>
+  </section>
+
+  <div class="gr-acciones">
+    <a class="btn-primary" id="grWa" target="_blank" rel="noopener noreferrer" href="#">Enviar comprobante por WhatsApp</a>
+    <a class="btn-outline" id="grCorreo" href="#">Enviar comprobante por correo</a>
+    <button type="button" class="btn-outline" id="grListo">Ya envié mi comprobante</button>
+  </div>
+  <p class="gr-aviso" style="margin-top:20px">Cada pieza se elabora a mano una vez confirmamos tu pago.</p>
+</main>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="lvr-mark" viewBox="0 0 402 343"><g transform="translate(0,343) scale(0.1,-0.1)" stroke="none"><path d="M612 3178 c-9 -9 -12 -189 -12 -748 l0 -735 728 -728 727 -727 732 0 c652 0 733 2 747 16 20 19 20 75 2 215 -23 165 -62 301 -133 451 l-36 78 38 82 c101 221 139 399 139 643 -1 242 -38 410 -140 625 -185 391 -548 690 -964 795 -163 41 -372 59 -398 33 -9 -9 -12 -174 -12 -682 l0 -671 -683 683 c-455 455 -689 682 -703 682 -11 0 -25 -5 -32 -12z m1802 -118 c521 -134 917 -556 1023 -1087 21 -110 24 -374 4 -483 -25 -139 -109 -390 -130 -390 -4 0 -29 30 -56 67 -65 89 -201 225 -295 295 -215 160 -467 259 -734 289 l-106 12 0 670 0 670 91 -7 c50 -4 141 -20 203 -36z m-1084 -665 l635 -635 -638 0 -637 0 0 635 c0 349 1 635 3 635 1 0 288 -286 637 -635z m700 -1360 c0 -349 -1 -635 -3 -635 -1 0 -288 286 -637 635 l-635 635 638 0 637 0 0 -635z m249 619 c192 -28 395 -107 571 -223 103 -67 296 -257 364 -358 l48 -71 -53 -79 c-76 -109 -245 -276 -357 -351 -203 -135 -425 -214 -664 -236 l-68 -7 0 671 0 670 26 0 c15 0 74 -7 133 -16z m1086 -868 c51 -133 95 -335 95 -438 0 -17 -25 -18 -437 -18 l-438 0 130 64 c72 35 170 92 220 127 108 77 252 219 320 316 59 84 57 85 110 -51z"/></g></symbol></svg>
+<script>
+  // Esta página recibe a la persona cuando Wompi termina el pago (configura la URL de redirección en Wompi).
+  (function () {
+    const WHATSAPP = '573208654762', CORREO = 'lavidaenrosaa@gmail.com';
+    const $ = id => document.getElementById(id);
+    let pedido = null;
+    try { pedido = JSON.parse(localStorage.getItem('lvr-pedido') || 'null'); } catch (e) {}
+    const q = new URLSearchParams(location.search);
+    const idTx = q.get('id');
+    const detalle = pedido && pedido.texto ? pedido.texto.replace(/^Hola, este es mi pedido:\n/, '') : '';
+    if (detalle) { $('grDetalle').textContent = detalle; $('grPedido').hidden = false; }
+    const msg = 'Hola, ya realicé el pago de mi pedido en La Vida en Rosa. Te envío el comprobante.' +
+      (idTx ? '\nReferencia de Wompi: ' + idTx : '') + (detalle ? '\n\n' + detalle : '');
+    $('grWa').href = 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(msg);
+    $('grCorreo').href = 'mailto:' + CORREO + '?subject=' + encodeURIComponent('Comprobante de pago - pedido La Vida en Rosa') +
+      '&body=' + encodeURIComponent(msg + '\n\n(Adjunta aquí el comprobante de pago)');
+    $('grListo').addEventListener('click', () => {
+      try { localStorage.removeItem('lvr-pedido'); localStorage.removeItem('lvr-carrito'); sessionStorage.removeItem('lvr-pagando'); } catch (e) {}
+      $('grTitulo').textContent = 'Listo, gracias';
+      $('grTexto').textContent = 'Recibiremos tu comprobante y te confirmaremos el pedido pronto.';
+      document.querySelector('.gr-acciones').hidden = true; $('grPedido').hidden = true;
+      $('grEstado').textContent = 'Pedido en camino';
+    });
+    // Si Wompi manda el id de la transacción en la dirección (?id=...), se consulta su estado real.
+    if (idTx) {
+      $('grRef').hidden = false; $('grRef').textContent = 'Referencia de pago: ' + idTx;
+      fetch('https://production.wompi.co/v1/transactions/' + encodeURIComponent(idTx))
+        .then(r => r.ok ? r.json() : Promise.reject())
+        .then(j => {
+          const st = j && j.data && j.data.status;
+          if (st === 'APPROVED') { $('grEstado').textContent = 'Pago aprobado'; $('grEstado').classList.add('gr-ok'); }
+          else if (st === 'PENDING') { $('grEstado').textContent = 'Pago pendiente'; $('grTitulo').textContent = 'Estamos esperando la confirmación'; $('grTexto').textContent = 'Wompi aún está procesando tu pago. Cuando se apruebe, envíanos el comprobante.'; }
+          else if (st) { $('grEstado').textContent = 'Pago no completado'; $('grTitulo').textContent = 'Tu pago no se completó'; $('grTexto').textContent = 'Wompi no aprobó este pago. Puedes volver a la tienda e intentarlo de nuevo, o escribirnos por WhatsApp.'; }
+        }).catch(() => {});
+    }
+  })();
+</script>
+<!-- WhatsApp Float -->
+<a href="https://wa.me/573208654762?text=Hola!%20Quiero%20saber%20más%20sobre%20sus%20flores%20de%20papel" class="wa-float" aria-label="Escribir por WhatsApp" target="_blank" rel="noopener noreferrer">
+  <span class="wa-tooltip">¡Chatea con nosotras!</span>
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+</a>
+
+</body>
+</html>

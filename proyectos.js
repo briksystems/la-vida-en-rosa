@@ -22,7 +22,7 @@
       nombre: 'Home', etiqueta: 'Portafolio', tipo: 'Decoración para espacios',
       texto: 'Flores de papel pensadas para el hogar: piezas que convierten una pared, una mesa o una esquina en un jardín que no se marchita.',
       portada: 'assets/img/proyectos/portada-home.jpg', enfoque: 'center 40%',
-      heroFotos: [['hero-1.jpg','50% 50%'],['hero-2.jpg','50% 50%'],['hero-3.jpg','50% 50%'],['hero-4.jpg','50% 50%']],
+      heroFotos: [['hero-1.jpg','50% 62%'],['hero-2.jpg','50% 50%'],['hero-3.jpg','50% 50%'],['hero-4.jpg','50% 50%']],
       fotos: pyFotos('home', [[1516,1513],[1563,1559],[1545,1571],[1551,1567],[1567,1569],[1557,1571],[1505,1572],[1530,1565],[1491,1499],[1522,1518],[1238,1396],[1126,1560],[1499,1518],[1503,1513]]), videos: []
     },
     rosa: {

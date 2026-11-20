@@ -3,8 +3,8 @@
   const tabs = [...document.querySelectorAll('.cat-tab')];
   const cuenta = document.getElementById('catalogCount');
   const GRUPOS = {
-    flores:   { lista: FLORES,   texto: () => `Cada flor se vende por unidad.` },
-    arreglos: { lista: ARREGLOS, texto: () => `Composiciones de varias flores, con su florero o base.` }
+    flores:   { lista: FLORES,   texto: () => `` },
+    arreglos: { lista: ARREGLOS, texto: () => `` }
   };
   let grupoActual = null;
   function mostrarGrupo(g, guardarHash) {

@@ -2277,3 +2277,18 @@
   .reel-copia { display: none; }
   .collage-item img { transition: none; }
 }
+
+/* ===== AJUSTES (quinta tanda): botones del catálogo y carrete más fino ===== */
+.cat-tabs { display: flex; flex-wrap: wrap; gap: 10px; max-width: none; }
+.cat-tab { display: inline-flex; flex-direction: row; align-items: center; justify-content: center; padding: 12px 24px; min-height: 0; }
+@media (max-width: 768px) {
+  .cat-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .cat-tab { padding: 12px 8px; min-height: 48px; text-align: center; }
+  .cat-tab-t { font-size: 10.5px; letter-spacing: 0.1em; line-height: 1.35; }
+}
+.reel { padding: 24px 0; margin-bottom: 56px; }
+.reel-item { font-family: var(--sans); font-style: normal; font-weight: 300; font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--mid); line-height: 1.4; transition: color 0.2s; }
+.reel-item:hover { color: var(--viola); }
+.reel-track { animation-duration: 35s; }
+.reel-sep { width: 5px; height: 5px; margin: 0 30px; }
+@media (max-width: 760px) { .reel { padding: 18px 0; margin-bottom: 36px; } .reel-item { font-size: 12px; } .reel-sep { margin: 0 22px; } }

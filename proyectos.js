@@ -10,7 +10,7 @@
       texto: 'Nos encanta materializar grandes ideas con nuestras manos. A lo largo de este camino hemos tenido la oportunidad de trabajar para marcas de lujo, agencias, diseñadores y proyectos que han sido un tesoro para nuestro corazón. Gracias a cada uno por confiar en nuestro trabajo para darle forma a su visión y dejarnos llevar un poco de nuestra esencia Rosa.',
       portada: 'assets/img/proyectos/portada-marcas.jpg', enfoque: 'center 40%',
       heroFotos: [['hero-1.jpg','40% 35%'],['hero-2.jpg','45% 28%'],['hero-3.jpg','52% 30%'],['hero-4.jpg','50% 10%']],
-      fotos: pyFotos('marcas', [[1800,1300],[1800,1000],[1499,1501],[808,810],[1435,1466],[1451,1520],[1516,1509],[1443,1522],[1800,1204]]), videos: [], marcas: true
+      fotos: pyFotos('marcas', [[1800,1300],[1800,1000],[1435,1466],[1451,1520],[808,810],[1793,1800],[1499,1501],[1516,1509],[1769,1800],[1739,1800],[1643,1800],[1774,1800],[1443,1522],[1800,1204],[1694,1716]]), videos: [], marcas: true
     },
     novias: {
       nombre: 'Novias', etiqueta: 'Portafolio', tipo: 'Colección Novias',

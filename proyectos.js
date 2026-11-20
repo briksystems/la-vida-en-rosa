@@ -149,7 +149,7 @@
     pyVista.querySelector('#pyVacio').hidden = true;
   }
 
-  function abrirProyecto(id, desdeHistorial) {
+  function abrirProyectoBase(id, desdeHistorial) {
     const p = PROYECTOS[id];
     if (!p) return;
     pyActual = p;
@@ -199,6 +199,26 @@
   }
   pyMovil.addEventListener('change', () => { if (pyAbierto && pyActual) { pyPintarGaleria(pyActual); pyAplicarSonido(); } });
   pyVista.querySelector('#pyVolver').addEventListener('click', cerrarProyecto);
+  // Al tocar la tarjeta de Home o Marcas, las dos fotos pequeñas crecen hasta ser las del encabezado del proyecto
+  function abrirProyecto(id, desdeHistorial) {
+    const p = PROYECTOS[id];
+    const card = document.querySelector('.categoria-card[data-proyecto="' + id + '"]');
+    const duo = card ? card.querySelectorAll('.categoria-duo img') : [];
+    if (!p || !p.heroFotos || duo.length < 2 || !document.startViewTransition || pyReducido || desdeHistorial || pyAbierto) {
+      return abrirProyectoBase(id, desdeHistorial);
+    }
+    duo[0].style.viewTransitionName = 'py-a'; duo[1].style.viewTransitionName = 'py-b';
+    let hs = [];
+    const t = document.startViewTransition(async () => {
+      duo[0].style.viewTransitionName = ''; duo[1].style.viewTransitionName = '';
+      abrirProyectoBase(id, false);
+      hs = [...pyVista.querySelectorAll('.py-hero-tira img')].slice(0, 2);
+      hs.forEach((h, i) => { h.style.viewTransitionName = i ? 'py-b' : 'py-a'; });
+      await Promise.all(hs.map(h => h.decode().catch(() => {})));
+    });
+    t.finished.finally(() => { hs.forEach(h => { h.style.viewTransitionName = ''; }); duo[0].style.viewTransitionName = ''; duo[1].style.viewTransitionName = ''; });
+  }
+
   pyVista.querySelector('#pySiguiente').addEventListener('click', e => abrirProyecto(e.currentTarget.dataset.id));
   window.addEventListener('popstate', () => {
     const m = location.hash.match(/^#proyecto-(.+)$/);

@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Raleway:wght@200;300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=9">
+<link rel="stylesheet" href="styles.css?v=10">
 </head>
 <body>
 <a class="skip-link" href="#contenido">Saltar al contenido</a>
@@ -117,7 +117,6 @@
     </div>
     <div class="shop-acciones">
       <a class="btn-outline" href="catalogo.html">Ver Catálogo Completo</a>
-      <a class="btn-outline" href="catalogo.html#arreglos">Ver Arreglos</a>
     </div>
   </div>
   <div class="shop-grid reveal" id="shopGrid"></div>
@@ -139,8 +138,8 @@
     </div>
   </div>
   <div class="categorias-grid categorias-dos">
-    <button class="categoria-card reveal" type="button" onclick="abrirProyecto('marcas')">
-      <span class="categoria-img" role="img" aria-label="Proyectos para marcas" style="background-image:url('assets/img/proyectos/portada-marcas.jpg')"></span>
+    <button class="categoria-card reveal" type="button" data-proyecto="marcas" onclick="abrirProyecto('marcas')">
+      <span class="categoria-img categoria-duo" role="img" aria-label="Proyectos para marcas"><img src="assets/img/proyectos/marcas/hero-1.jpg" alt="" width="1100" height="1100" loading="lazy" decoding="async"><img src="assets/img/proyectos/marcas/hero-2.jpg" alt="" width="1100" height="1100" loading="lazy" decoding="async"></span>
       <span class="categoria-name">Marcas</span>
     </button>
     <button class="categoria-card reveal" type="button" onclick="abrirProyecto('novias')">
@@ -213,8 +212,8 @@
     </div>
   </div>
   <div class="categorias-grid categorias-dos">
-    <button class="categoria-card reveal" type="button" onclick="abrirProyecto('home')">
-      <span class="categoria-img" role="img" aria-label="Colección Home" style="background-image:url('assets/img/proyectos/portada-home.jpg')"></span>
+    <button class="categoria-card reveal" type="button" data-proyecto="home" onclick="abrirProyecto('home')">
+      <span class="categoria-img categoria-duo" role="img" aria-label="Colección Home"><img src="assets/img/proyectos/home/hero-1.jpg" alt="" width="1100" height="1100" loading="lazy" decoding="async"><img src="assets/img/proyectos/home/hero-2.jpg" alt="" width="1100" height="1100" loading="lazy" decoding="async"></span>
       <span class="categoria-name">Home</span>
     </button>
     <button class="categoria-card reveal" type="button" onclick="abrirProyecto('rosa')">
@@ -481,7 +480,7 @@
 <script src="comun.js?v=8" defer></script>
 <script src="carrito.js?v=8" defer></script>
 <script src="producto.js?v=8" defer></script>
-<script src="proyectos.js?v=9" defer></script>
+<script src="proyectos.js?v=10" defer></script>
 <script src="main.js?v=8" defer></script>
 </body>
 </html>

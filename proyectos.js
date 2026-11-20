@@ -9,7 +9,7 @@
       nombre: 'Marcas', etiqueta: 'Portafolio', tipo: 'Proyectos para marcas y eventos',
       texto: 'Nos encanta materializar grandes ideas con nuestras manos. A lo largo de este camino hemos tenido la oportunidad de trabajar para marcas de lujo, agencias, diseñadores y proyectos que han sido un tesoro para nuestro corazón. Gracias a cada uno por confiar en nuestro trabajo para darle forma a su visión y dejarnos llevar un poco de nuestra esencia Rosa.',
       portada: 'assets/img/proyectos/portada-marcas.jpg', enfoque: 'center 40%',
-      heroFotos: [['hero-1.jpg','45% 28%'],['hero-2.jpg','52% 30%'],['hero-3.jpg','50% 10%'],['hero-4.jpg','42% 28%']],
+      heroFotos: [['hero-1.jpg','40% 35%'],['hero-2.jpg','45% 28%'],['hero-3.jpg','52% 30%'],['hero-4.jpg','50% 10%']],
       fotos: pyFotos('marcas', [[1800,1300],[1800,1000],[1499,1501],[808,810],[1435,1466],[1451,1520],[1516,1509],[1443,1522],[1800,1204]]), videos: [], marcas: true
     },
     novias: {
@@ -123,7 +123,17 @@
     const srcs = p.fotos.map(f => f.src);
     const nCols = pyMovil.matches ? 2 : 3;
     const colEls = Array.from({ length: nCols }, () => { const c = document.createElement('div'); c.className = 'py-col'; g.appendChild(c); return c; });
-    pyConstruirItems(p, nCols).forEach((it, n) => {
+    const alturas = new Array(nCols).fill(0);
+    const itemsGal = pyConstruirItems(p, nCols);
+    // Las primeras filas se reparten en orden; desde ahí cada pieza va a la columna más corta (sin huecos abajo).
+    const colPara = (it, n) => {
+      const r = it.tipo === 'video' ? 16 / 9 : (it.f.w && it.f.h ? it.f.h / it.f.w : 1);
+      let c = n % nCols;
+      if (n >= nCols * 2) c = alturas.indexOf(Math.min(...alturas));
+      alturas[c] += r; return c;
+    };
+    itemsGal.forEach((it, n) => {
+      const col = colPara(it, n);
       if (it.tipo === 'foto') {
         const b = document.createElement('button');
         b.type = 'button'; b.className = 'py-item py-foto';
@@ -131,7 +141,7 @@
         const ar = it.f.w && it.f.h ? ` style="aspect-ratio:${it.f.w} / ${it.f.h}"` : '';
         b.innerHTML = `<img src="${it.f.src}" alt="${p.nombre}, foto ${it.i + 1}"${it.f.w ? ` width="${it.f.w}" height="${it.f.h}"` : ''}${ar} loading="${n < 4 ? 'eager' : 'lazy'}" decoding="async">`;
         b.addEventListener('click', () => abrirLightbox(srcs, it.i, p.nombre));
-        colEls[n % nCols].appendChild(b);
+        colEls[col].appendChild(b);
       } else {
         const w = document.createElement('div');
         w.className = 'py-item py-video';
@@ -142,7 +152,7 @@
           if (v.paused) { v.dataset.manual = ''; v.play().catch(() => {}); } else { v.dataset.manual = '1'; v.pause(); }
         });
         bs.addEventListener('click', () => { pySonidoOn = v.muted; pyAplicarSonido(); if (v.paused && !v.dataset.manual) v.play().catch(() => {}); });
-        colEls[n % nCols].appendChild(w);
+        colEls[col].appendChild(w);
         pyObsCarga.observe(v); pyObsJuego.observe(v);
       }
     });
@@ -199,24 +209,25 @@
   }
   pyMovil.addEventListener('change', () => { if (pyAbierto && pyActual) { pyPintarGaleria(pyActual); pyAplicarSonido(); } });
   pyVista.querySelector('#pyVolver').addEventListener('click', cerrarProyecto);
-  // Al tocar la tarjeta de Home o Marcas, las dos fotos pequeñas crecen hasta ser las del encabezado del proyecto
+  // Al tocar la tarjeta de Home o Marcas, la foto pequeña crece hasta ser la primera del encabezado del proyecto
+  function pyCardVisible(c) { const r = c.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight; }
   function abrirProyecto(id, desdeHistorial) {
     const p = PROYECTOS[id];
     const card = document.querySelector('.categoria-card[data-proyecto="' + id + '"]');
     const duo = card ? card.querySelectorAll('.categoria-duo img') : [];
-    if (!p || !p.heroFotos || duo.length < 2 || !document.startViewTransition || pyReducido || desdeHistorial || pyAbierto) {
+    if (!p || !p.heroFotos || duo.length < 1 || !pyCardVisible(card) || !document.startViewTransition || pyReducido || desdeHistorial || pyAbierto) {
       return abrirProyectoBase(id, desdeHistorial);
     }
-    duo[0].style.viewTransitionName = 'py-a'; duo[1].style.viewTransitionName = 'py-b';
+    duo[0].style.viewTransitionName = 'py-a';
     let hs = [];
     const t = document.startViewTransition(async () => {
-      duo[0].style.viewTransitionName = ''; duo[1].style.viewTransitionName = '';
+      duo[0].style.viewTransitionName = '';
       abrirProyectoBase(id, false);
-      hs = [...pyVista.querySelectorAll('.py-hero-tira img')].slice(0, 2);
-      hs.forEach((h, i) => { h.style.viewTransitionName = i ? 'py-b' : 'py-a'; });
+      hs = [...pyVista.querySelectorAll('.py-hero-tira img')].slice(0, 1);
+      hs.forEach(h => { h.style.viewTransitionName = 'py-a'; });
       await Promise.all(hs.map(h => h.decode().catch(() => {})));
     });
-    t.finished.finally(() => { hs.forEach(h => { h.style.viewTransitionName = ''; }); duo[0].style.viewTransitionName = ''; duo[1].style.viewTransitionName = ''; });
+    t.finished.finally(() => { hs.forEach(h => { h.style.viewTransitionName = ''; }); duo[0].style.viewTransitionName = ''; });
   }
 
   pyVista.querySelector('#pySiguiente').addEventListener('click', e => abrirProyecto(e.currentTarget.dataset.id));

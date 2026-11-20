@@ -3,11 +3,9 @@
   const tabs = [...document.querySelectorAll('.cat-tab')];
   const cuenta = document.getElementById('catalogCount');
   const GRUPOS = {
-    flores:   { lista: FLORES,   texto: n => `${n} flores, cada una se vende por unidad.` },
-    arreglos: { lista: ARREGLOS, texto: n => `${n} composiciones de varias flores, con su florero o base.` }
+    flores:   { lista: FLORES,   texto: () => `Cada flor se vende por unidad.` },
+    arreglos: { lista: ARREGLOS, texto: () => `Composiciones de varias flores, con su florero o base.` }
   };
-  document.getElementById('nFlores').textContent = FLORES.length;
-  document.getElementById('nArreglos').textContent = ARREGLOS.length;
   let grupoActual = null;
   function mostrarGrupo(g, guardarHash) {
     if (!GRUPOS[g]) g = 'flores';

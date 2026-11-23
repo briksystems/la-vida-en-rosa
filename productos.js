@@ -74,17 +74,11 @@
     const card = document.createElement('div');
     card.className = 'product-card';
     card.innerHTML =
-      `<a class="product-link" href="#flor-${p.id}" aria-label="Ver ${nombreItem(p)}">` +
+      `<a class="product-link" href="${window.TIENDA}/products/${p.id}" aria-label="Ver ${nombreItem(p)}">` +
       `<div class="product-img"><div class="product-fill"><img src="${p.miniatura}" alt="${nombreItem(p)}" loading="lazy" decoding="async" width="700" height="933"></div>` +
       `<div class="product-hover-overlay"><span class="ver-detalle-btn">Ver Detalle</span></div></div>` +
       `<div class="product-name">${p.tipo === 'arreglo' ? '<span class="product-kind">Arreglo</span> ' : ''}${p.nombre}</div><div class="product-type${p.tipo === 'arreglo' ? ' product-type-resumen' : ''}">${p.tipo === 'arreglo' ? p.resumen : 'Flor realista en papel'}</div></a>` +
-      `<div class="product-footer"><div class="product-price">${formatoPrecio(p.precio)}</div><button class="product-action" type="button" aria-label="Agregar ${nombreItem(p)} al carrito">Agregar</button></div>`;
-    card.querySelector('.product-link').addEventListener('click', e => { e.preventDefault(); abrirProducto(p.id); });
-    const btn = card.querySelector('.product-action');
-    btn.addEventListener('click', () => {
-      carritoAgregar(p.id);
-      btn.textContent = 'Agregada'; btn.classList.add('ok');
-      setTimeout(() => { btn.textContent = 'Agregar'; btn.classList.remove('ok'); }, 1400);
-    });
+      `<div class="product-footer"><div class="product-price">${formatoPrecio(p.precio)}</div><button class="product-action" type="button" aria-label="Comprar ${nombreItem(p)} en la tienda">Comprar</button></div>`;
+    card.querySelector('.product-action').addEventListener('click', () => { location.href = `${window.TIENDA}/products/${p.id}`; });
     return card;
   }

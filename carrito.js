@@ -198,6 +198,6 @@
     if (!carritoAbiertoFlag) return;
     if (e.key === 'Escape') { e.stopImmediatePropagation(); carritoCerrar(); } else trapFocus(e, cPanel);
   }, true);
-  document.addEventListener('click', e => { if (e.target.closest('.js-cart-btn')) carritoAbrir(); });
+  document.addEventListener('click', e => { if (e.target.closest('.js-cart-btn')) location.href = window.TIENDA + '/cart'; });
   window.addEventListener('storage', e => { if (e.key === CARRITO_CLAVE) { try { carrito = JSON.parse(e.newValue || '[]'); } catch (x) { carrito = []; } carritoPintar(); } });
   carritoPintar();

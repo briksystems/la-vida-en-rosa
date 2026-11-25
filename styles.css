@@ -2306,3 +2306,10 @@
 .py-galeria { align-items: stretch; }
 .py-col .py-foto { flex: 1 1 auto; min-height: 0; }
 .py-col .py-foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+
+/* Cinta de palabras: 4 copias para que nunca se vea vacía, un poco más rápida */
+@keyframes reel { from { transform: translateX(0); } to { transform: translateX(-25%); } }
+.reel-track { animation-duration: 26s; }
+/* Marcas que han confiado: más lenta */
+.py-marcas .clientes-marquee { animation-duration: 70s; }

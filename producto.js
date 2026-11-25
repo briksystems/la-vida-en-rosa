@@ -8,7 +8,7 @@
   vp.innerHTML =
     '<div class="pp-barra">' +
       '<button type="button" class="pp-link" id="ppVolver"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg> ' + (vpEnCatalogo ? 'Volver al catálogo' : 'Volver al inicio') + '</button>' +
-      (vpEnCatalogo ? '' : '<a class="pp-link" href="' + window.TIENDA + '/collections/flores-por-unidad">Ver catálogo completo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>') +
+      (vpEnCatalogo ? '' : '<a class="pp-link" href="' + window.TIENDA + '/">Ver catálogo completo <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>') +
     '</div>' +
     '<div class="pp-grid" id="ppGrid">' +
       '<section class="pp-gallery" aria-label="Fotos del producto"><div id="ppFotos"></div></section>' +

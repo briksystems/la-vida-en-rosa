@@ -2148,13 +2148,20 @@
 #impacto { background: var(--white); }
 @media (max-width: 768px) { .seccion-proyecto-uno { padding: 60px 24px; } }
 
-/* Retratos: cinco fotos en fila, sin rayas ni ondas */
-.retratos { display: flex; gap: 6px; background: var(--white); }
-.retratos img { flex: 1 1 0; min-width: 0; height: clamp(300px, 36vw, 560px); object-fit: cover; display: block; }
+/* Retratos: carrusel que avanza solo (se pausa al pasar el mouse) */
+.retratos { overflow: hidden; background: var(--white); }
+.retratos-pista { display: flex; gap: 6px; width: max-content; animation: retratos 80s linear infinite; }
+.retratos:hover .retratos-pista { animation-play-state: paused; }
+.retratos img { flex: 0 0 auto; width: clamp(220px, 24vw, 380px); height: clamp(300px, 36vw, 560px); object-fit: cover; display: block; }
+@keyframes retratos { to { transform: translateX(calc(-50% - 3px)); } }
 @media (max-width: 768px) {
-  .retratos { overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
-  .retratos::-webkit-scrollbar { display: none; }
-  .retratos img { flex: 0 0 62%; height: 340px; scroll-snap-align: start; }
+  .retratos img { width: 62vw; height: 340px; }
+  .retratos-pista { animation-duration: 60s; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .retratos { overflow-x: auto; scrollbar-width: none; }
+  .retratos-pista { animation: none; }
+  .retratos img[aria-hidden="true"] { display: none; }
 }
 
 /* Botón de la comunidad */
@@ -2292,3 +2299,10 @@
 .reel-track { animation-duration: 35s; }
 .reel-sep { width: 5px; height: 5px; margin: 0 30px; }
 @media (max-width: 760px) { .reel { padding: 18px 0; margin-bottom: 36px; } .reel-item { font-size: 12px; } .reel-sep { margin: 0 22px; } }
+
+
+/* Galerías de proyectos: todas las columnas terminan a la misma altura (sin huecos abajo).
+   Cada pieza crece en proporción a su forma y la foto rellena su marco. */
+.py-galeria { align-items: stretch; }
+.py-col .py-foto { flex: 1 1 auto; min-height: 0; }
+.py-col .py-foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }

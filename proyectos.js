@@ -21,21 +21,21 @@
     home: {
       nombre: 'Home', etiqueta: 'Portafolio', tipo: 'Decoración para espacios',
       texto: 'Flores de papel pensadas para el hogar: piezas que convierten una pared, una mesa o una esquina en un jardín que no se marchita.',
-      portada: 'assets/img/proyectos/portada-home.jpg', enfoque: 'center 40%',
+      portada: 'assets/img/proyectos/portada-home.jpg?v=5', enfoque: 'center 40%',
       heroFotos: [['hero-1.jpg','50% 62%'],['hero-2.jpg','50% 50%'],['hero-3.jpg','50% 50%'],['hero-4.jpg','50% 50%']],
       fotos: pyFotos('home', [[1516,1513],[1563,1559],[1545,1571],[1551,1567],[1567,1569],[1557,1571],[1505,1572],[1530,1565],[1491,1499],[1522,1518],[1238,1396],[1126,1560],[1499,1518],[1503,1513]]), videos: []
     },
     rosa: {
       nombre: '+Rosa', etiqueta: 'Impacto social', tipo: 'Iniciativa +Rosa',
       texto: 'Somos el equipo de La Vida en Rosa. Hace nueve años comenzamos este proyecto con una visión grande: impactar la vida de muchas mujeres. Hoy esa visión tiene nombre propio, <strong>+Rosa</strong>. Detrás de cada flor hay unas manos que aprendieron un oficio y una oportunidad que cambia una historia. Estas son las razones que nos motivan a seguir trabajando con amor y responsabilidad.',
-      portada: 'assets/img/proyectos/portada-rosa.jpg', enfoque: 'center 40%',
+      portada: 'assets/img/proyectos/portada-rosa.jpg?v=5', enfoque: 'center 40%',
       fotos: pyFotos('rosa', [[1800,1495],[1800,1377],[1516,1518],[1200,1600],[1432,1488],[836,1234],[1350,1800],[1350,1800],[1800,1200],[1800,1200],[1800,1200]]), videos: ['flores-gigantes']
     }
   };
   const PROYECTOS_ORDEN = ['marcas', 'novias', 'home', 'rosa'];
   Object.entries(PROYECTOS).forEach(([k, p]) => {
     p.id = k;
-    p.fotos = p.fotos.map(f => ({ src: `assets/img/proyectos/${k}/${f[0]}?v=4`, w: f[1], h: f[2] }));
+    p.fotos = p.fotos.map(f => ({ src: `assets/img/proyectos/${k}/${f[0]}?v=5`, w: f[1], h: f[2] }));
     p.videos = p.videos.map(n => { const nom = typeof n === 'number' ? `capsula-${n}` : n; return { src: `assets/video/proyectos/${nom}.mp4`, poster: `assets/img/proyectos/${nom}.jpg` }; });
   });
 
@@ -167,7 +167,7 @@
     const img = pyVista.querySelector('#pyPortada');
     const tira = pyVista.querySelector('#pyTira'), hero = pyVista.querySelector('#pyHero');
     if (p.heroFotos) {
-      tira.innerHTML = p.heroFotos.map((f, i) => `<img src="assets/img/proyectos/${p.id}/${f[0]}?v=4" alt="" style="object-position:${f[1]}" ${i < 2 ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">`).join('');
+      tira.innerHTML = p.heroFotos.map((f, i) => `<img src="assets/img/proyectos/${p.id}/${f[0]}?v=5" alt="" style="object-position:${f[1]}" ${i < 2 ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">`).join('');
       tira.hidden = false; img.hidden = true; hero.classList.add('py-hero-multi');
     } else {
       tira.hidden = true; tira.innerHTML = ''; img.hidden = false; hero.classList.remove('py-hero-multi');
@@ -191,6 +191,8 @@
       pyVista.hidden = false; pyAbierto = true;
       document.body.style.overflow = 'hidden';
       pyVista.querySelector('#pyVolver').focus({ preventScroll: true });
+      pyVista.scrollTop = 0;
+      requestAnimationFrame(() => { pyVista.scrollTop = 0; });
       if (!desdeHistorial) history.pushState({ proyecto: id }, '', '#proyecto-' + id);
     } else if (!desdeHistorial) {
       history.replaceState({ proyecto: id }, '', '#proyecto-' + id);

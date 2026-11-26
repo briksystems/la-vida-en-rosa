@@ -9,8 +9,8 @@
       nombre: 'Marcas', etiqueta: 'Portafolio', tipo: 'Proyectos para marcas y eventos',
       texto: 'Nos encanta materializar grandes ideas con nuestras manos. A lo largo de este camino hemos tenido la oportunidad de trabajar para marcas de lujo, agencias, diseñadores y proyectos que han sido un tesoro para nuestro corazón. Gracias a cada uno por confiar en nuestro trabajo para darle forma a su visión y dejarnos llevar un poco de nuestra esencia Rosa.',
       portada: 'assets/img/proyectos/portada-marcas.jpg', enfoque: 'center 40%',
-      heroFotos: [['hero-1.jpg','50% 45%'],['hero-2.jpg','45% 28%'],['hero-3.jpg','52% 30%'],['hero-4.jpg','50% 10%']],
-      fotos: pyFotos('marcas', [[1800,1300],[1800,1000],[1600,1591],[1435,1466],[1451,1520],[808,810],[1793,1800],[1182,1600],[1499,1501],[1516,1509],[1769,1800],[1739,1800],[1550,1600],[1643,1800],[1600,1579],[1774,1800],[1443,1522],[1800,1204],[1694,1716],[1574,1600]]), videos: [], marcas: true
+      heroFotos: [['hero-1.jpg','50% 30%'],['hero-2.jpg','50% 38%'],['hero-3.jpg','45% 50%'],['hero-4.jpg','30% 50%'],['hero-5.jpg','50% 50%']],
+      fotos: pyFotos('marcas', [[1800,1300],[1800,1000],[1199,1600],[1435,1466],[1451,1520],[808,810],[1793,1800],[1182,1600],[1499,1501],[1516,1509],[1769,1800],[1739,1800],[1097,1100],[1643,1800],[1096,1100],[1774,1800],[1443,1522],[1800,1204],[1694,1716],[1026,1100]]), videos: [], marcas: true
     },
     novias: {
       nombre: 'Novias', etiqueta: 'Portafolio', tipo: 'Colección Novias',
@@ -35,7 +35,7 @@
   const PROYECTOS_ORDEN = ['marcas', 'novias', 'home', 'rosa'];
   Object.entries(PROYECTOS).forEach(([k, p]) => {
     p.id = k;
-    p.fotos = p.fotos.map(f => ({ src: `assets/img/proyectos/${k}/${f[0]}?v=3`, w: f[1], h: f[2] }));
+    p.fotos = p.fotos.map(f => ({ src: `assets/img/proyectos/${k}/${f[0]}?v=4`, w: f[1], h: f[2] }));
     p.videos = p.videos.map(n => { const nom = typeof n === 'number' ? `capsula-${n}` : n; return { src: `assets/video/proyectos/${nom}.mp4`, poster: `assets/img/proyectos/${nom}.jpg` }; });
   });
 
@@ -167,7 +167,7 @@
     const img = pyVista.querySelector('#pyPortada');
     const tira = pyVista.querySelector('#pyTira'), hero = pyVista.querySelector('#pyHero');
     if (p.heroFotos) {
-      tira.innerHTML = p.heroFotos.map((f, i) => `<img src="assets/img/proyectos/${p.id}/${f[0]}?v=3" alt="" style="object-position:${f[1]}" ${i < 2 ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">`).join('');
+      tira.innerHTML = p.heroFotos.map((f, i) => `<img src="assets/img/proyectos/${p.id}/${f[0]}?v=4" alt="" style="object-position:${f[1]}" ${i < 2 ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">`).join('');
       tira.hidden = false; img.hidden = true; hero.classList.add('py-hero-multi');
     } else {
       tira.hidden = true; tira.innerHTML = ''; img.hidden = false; hero.classList.remove('py-hero-multi');

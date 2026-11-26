@@ -2313,3 +2313,10 @@
 .reel-track { animation-duration: 26s; }
 /* Marcas que han confiado: más lenta */
 .py-marcas .clientes-marquee { animation-duration: 70s; }
+
+/* Hero con 5 fotos (Marcas): en el celular la primera ocupa todo el ancho y las otras cuatro van en 2 x 2 */
+@media (max-width: 900px) {
+  .py-hero-tira:has(img:nth-child(5)) { grid-template-rows: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1fr); overflow: hidden; }
+  .py-hero-tira:has(img:nth-child(5)) img { min-height: 0; }
+  .py-hero-tira img:first-child:nth-last-child(5) { grid-column: 1 / -1; }
+}
